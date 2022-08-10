@@ -5,7 +5,6 @@ from django.dispatch import receiver
 
 from empresas.models.models_empresa import Empresa
 
-# Create your models here.
 class Funcionario(models.Model):
     CARGOS_CHOICES = (
         ('PP', 'Desenvolvedor Python Pleno'),
