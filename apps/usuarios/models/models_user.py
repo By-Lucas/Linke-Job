@@ -12,8 +12,8 @@ def upload_to(instance ,filename):
 class ProfileUser(models.Model):
     TIPO_USUARIO = (
         ('U', 'Usuario'),
-        ('E', 'Produtor'),
-        )
+        ('E', 'Empresa'),
+    )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_tipo = models.CharField(choices=TIPO_USUARIO, max_length=20, null=True, blank=True, db_column='user_tipo', default='U')
@@ -24,15 +24,13 @@ class ProfileUser(models.Model):
     numero_casa = models.IntegerField(null=True, blank=True, db_column='numero_casa')
     cpf = models.CharField(max_length=14, null=True, blank=True, db_column='cpf')
     cnpj = models.CharField(max_length=18, null=True, blank=True, db_column='cnpj')
-    endereco = models.CharField(max_length=60, null=True, blank=True, db_column='endereco')
     sobre = models.TextField(max_length=500, null=True, blank=True, db_column='sobre')
-    facebook_user = models.CharField(max_length=100, null=True, blank=True)
-    instagram_user = models.CharField(max_length=100, null=True, blank=True)
-    linkedin_user = models.CharField(max_length=100, null=True, blank=True)
+    github_user = models.CharField(max_length=100, null=True, blank=True, db_column='github_user')
+    linkedin_user = models.CharField(max_length=100, null=True, blank=True, db_column='linkedin_user')
+    instagram_user = models.CharField(max_length=100, null=True, blank=True, db_column='instagram_user')
     imagem_perfil = models.ImageField(default='usuario.png', upload_to=upload_to, null=True, blank=True, db_column='imagem_perfil')
     data_cadastro = models.DateField(null=True, blank=True, auto_created=True, auto_now=True, db_column='data_cadastro')
     data_update = models.DateTimeField(auto_now=True, db_column='data_update')
-
 
     def get_user_tipo(self):
         if self.user_tipo == 'C':
