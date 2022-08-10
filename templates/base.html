@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        {% block head %}{% endblock head %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon" />
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Handlee&family=Nunito&display=swap"
+        rel="stylesheet"
+        />
+
+        <!-- Font Awesome -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+        rel="stylesheet"
+        />
+
+        <!-- Flaticon Font -->
+        <link href="{% static 'css/lib/flaticon/font/flaticon.css' %}" rel="stylesheet" />
+
+        <!-- Libraries Stylesheet -->
+        <link href="{% static 'css/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet" />
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+        <title>Linke Job {% block title %}{% endblock %}</title>
+
+    </head>
+    <body>
+        <!-- Navbar Start -->
+    <div class="container-fluid bg-light position-relative shadow">
+        <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+            <a href="{% url 'index' %}"
+                class="navbar-brand font-weight-bold text-secondary" style="font-size: 50px">
+                <i class="flaticon-036-boy"></i>
+                <span class="text-primary">Linke Job</span>
+            </a>
+            <button
+                type="button"
+                class="navbar-toggler"
+                data-toggle="collapse"
+                data-target="#navbarCollapse"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+                class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav font-weight-bold mx-auto py-0">
+                    <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
+                    <a href="{% url 'todas_vagas' %}" class="nav-item nav-link">Vagas</a>
+                    <a href="class.html" class="nav-item nav-link">Sobre</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            Cursos
+                        </a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="blog.html" class="dropdown-item">Python</a>
+                            <a href="single.html" class="dropdown-item">Django</a>
+                            <a href="single.html" class="dropdown-item">Flask</a>
+                            <a href="single.html" class="dropdown-item">Fast Api</a>
+                            <a href="single.html" class="dropdown-item">Aws Lambida</a>
+                        </div>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <a href="" class="nav-item nav-link">Administração</a>
+                    {% endif %}
+                    <a href="contact.html" class="nav-item nav-link">Contato</a>
+                </div>
+                <a href="" class="btn btn-primary px-3 mr-2">
+                    Cadastre-se
+                    <i class="fas fa-user-plus px-1"></i>
+                </a>
+                {% if request.user.is_authenticated %}
+                    <a href="" class="btn btn-danger px-3">
+                        Logout
+                        <i class='fas fa-sign-out-alt px-1'></i>
+                    </a>
+                {% else %}
+                    <a href="" class="btn btn-primary px-3">
+                        Login
+                        <li class="fas fa-sign-in-alt px-1"></li>
+                    </a>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+        
+
+
+        {% block body %}{% endblock body %}
+
+        <!-- Rodapé -->
+        {% include 'rodape.html' %}
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'js/lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'js/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/lib/isotope/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'js/lib/lightbox/js/lightbox.min.js' %}"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="{% static 'js/mail/jqBootstrapValidation.min.js' %}"></script>
+        <script src="{% static 'js/mail/contact.js' %}"></script>
+
+        <!-- Template Javascript -->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

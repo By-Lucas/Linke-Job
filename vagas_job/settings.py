@@ -35,6 +35,7 @@ INSTALLED_APPS += [
     'empresas',
     'usuarios',
     'vagas',
+    'autenticacao',
 
 ]
 
