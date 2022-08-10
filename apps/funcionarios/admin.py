@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models.models_funcionario import Funcionario
+
+admin.site.register(Funcionario)
