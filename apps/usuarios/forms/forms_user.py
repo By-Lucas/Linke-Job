@@ -15,6 +15,7 @@ class UserForm(forms.ModelForm):
             'email'
         ]
 
+
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True,  widget=forms.TextInput(
             attrs={

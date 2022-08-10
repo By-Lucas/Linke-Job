@@ -81,7 +81,7 @@
                     <i class="fas fa-user-plus px-1"></i>
                 </a>
                 {% if request.user.is_authenticated %}
-                    <a href="" class="btn btn-danger px-3">
+                    <a href="{% url 'logout' %}" class="btn btn-danger px-3">
                         Logout
                         <i class='fas fa-sign-out-alt px-1'></i>
                     </a>

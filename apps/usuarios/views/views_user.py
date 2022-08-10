@@ -13,7 +13,7 @@ from forms.forms_user import UserForm, ProfileUserForm, SignUpForm
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('index')
-    template_name = 'auth/sign-up.html'
+    template_name = 'register/sign-up.html'
 
     def form_valid(self, form):
         fornecedor_cliente = self.request.POST.get('fornecedor_cliente')
