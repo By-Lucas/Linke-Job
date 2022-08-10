@@ -26,7 +26,7 @@ class Funcionario(models.Model):
         return self.nome
 
 
-@receiver(post_save, sender=Funcionario)
+@receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if instance.is_staff:
         try:
