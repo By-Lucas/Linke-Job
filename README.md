@@ -1,2 +1,2 @@
 # LINE JOB
-## Vagas e empregos ao seu alcance
+## Vagas de empregos ao seu alcance
