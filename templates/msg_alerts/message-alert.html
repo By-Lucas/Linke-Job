@@ -1,0 +1,28 @@
+<div style="align-items: center; display:flex; justify-content: center;">
+    {{ message }}
+    <br>
+    {% if messages %}
+        {% for message in messages %}
+            <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+                {{message}}
+                <div class="col-auto text-center">
+                    <button class="btn-close btn-sm text-sm" type="button" onclick="$(this).closest('.alert').remove()"></button>
+                </div>
+            </div>
+            {% if message.extra_tags != 'stay' %}
+            <script>
+                $(function() {
+                    if ($('.redirect-msg').length > 0) {
+                        setTimeout(() => {
+                            $('.redirect-msg').hide('slideUp')
+                            setTimeout(() => {
+                                $('.redirect-msg').remove()
+                            }, 500)
+                        }, 3500)
+                    }
+                })
+            </script>
+            {% endif %}
+            {% endfor %}
+    {% endif %}
+</div>

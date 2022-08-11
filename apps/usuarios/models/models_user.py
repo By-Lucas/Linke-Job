@@ -33,7 +33,7 @@ class ProfileUser(models.Model):
     data_update = models.DateTimeField(auto_now=True, db_column='data_update')
 
     def get_user_tipo(self):
-        if self.user_tipo == 'C':
+        if self.user_tipo == 'U':
             tipo_user = 'Usuario'
         if self.user_tipo == 'E':
             tipo_user = 'Empresa'

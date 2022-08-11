@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, CreateView
 from django.contrib import messages
 from django.contrib.messages import constants
 
-from forms.forms_user import UserForm, ProfileUserForm, SignUpForm
+from ..forms.forms_user import UserForm, ProfileUserForm, SignUpForm
 
 
 class SignUpView(CreateView):
@@ -16,11 +16,7 @@ class SignUpView(CreateView):
     template_name = 'register/sign-up.html'
 
     def form_valid(self, form):
-        fornecedor_cliente = self.request.POST.get('fornecedor_cliente')
-        if fornecedor_cliente == 'cliente' or fornecedor_cliente == '':
-            grupo = get_object_or_404(Group, name='usuario')
-        else:
-            grupo = get_object_or_404(Group, name='empresa')
+        grupo = get_object_or_404(Group, name='usuario')
 
         url = super().form_valid(form)
         self.object.groups.add(grupo)

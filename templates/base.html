@@ -72,11 +72,13 @@
                         </div>
                     </div>
                     {% if request.user.is_authenticated %}
-                        <a href="" class="nav-item nav-link">Administração</a>
+                        {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'empresa' %}
+                            <a href="" class="nav-item nav-link">Administração</a>
+                        {% endif %}
                     {% endif %}
                     <a href="contact.html" class="nav-item nav-link">Contato</a>
                 </div>
-                <a href="" class="btn btn-primary px-3 mr-2">
+                <a href="{% url 'register' %}" class="btn btn-primary px-3 mr-2">
                     Cadastre-se
                     <i class="fas fa-user-plus px-1"></i>
                 </a>
@@ -86,7 +88,7 @@
                         <i class='fas fa-sign-out-alt px-1'></i>
                     </a>
                 {% else %}
-                    <a href="" class="btn btn-primary px-3">
+                    <a href="{% url 'login' %}" class="btn btn-primary px-3">
                         Login
                         <li class="fas fa-sign-in-alt px-1"></li>
                     </a>

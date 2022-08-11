@@ -38,6 +38,7 @@ INSTALLED_APPS += [
     'autenticacao',
     'funcionarios',
 
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

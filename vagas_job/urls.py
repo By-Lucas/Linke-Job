@@ -9,6 +9,7 @@ urlpatterns = [
     path("vagas/", include('vagas.urls')),
     path("user/", include('vagas.urls')),
     path("auth/", include('autenticacao.urls')),
+    path("usuario/", include('usuarios.urls')),
 ]
 
 if settings.DEBUG:

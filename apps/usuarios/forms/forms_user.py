@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from models.models_user import ProfileUser
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
+from ..models.models_user import ProfileUser
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -17,34 +17,34 @@ class UserForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=True,  widget=forms.TextInput(
+    first_name = forms.CharField(max_length=30, required=True, label='Nome:',  widget=forms.TextInput(
             attrs={
                 'class':'form-control','placeholder': 'Digite seu nome aqui'
             }
         ))
-    last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
+    last_name = forms.CharField(max_length=30, required=True, label='Sobrenome:', widget=forms.TextInput(
             attrs={
                 'class':'form-control','placeholder': 'Digite seu sobrenome aqui'
             }
         ))
-    username = forms.CharField(max_length=120, required=True, widget=forms.TextInput(
+    username = forms.CharField(max_length=120, required=True, label='Usuário:',widget=forms.TextInput(
             attrs={
                 'class':'form-control','placeholder': 'Digite seu usuário aqui'
             }
         ))
-    email = forms.EmailField(max_length=120, required=True, widget=forms.TextInput(
+    email = forms.EmailField(max_length=120, required=True, label='E-mail:', widget=forms.TextInput(
             attrs={
-                'class':'form-control','placeholder': 'Digite seu email aqui'
+                'class':'form-control','placeholder': 'Digite seu email aqui', 'type': 'email'
             }
         ))
-    password1 = forms.CharField(max_length=120, required=True, widget=forms.TextInput(
+    password1 = forms.CharField(max_length=120, required=True,label='Senha:', widget=forms.TextInput(
             attrs={
-                'class':'form-control','placeholder': 'Digite sua senha aqui'
+                'class':'form-control','placeholder': 'Digite sua senha aqui', 'type': 'password'
             }
         ))
-    password2 = forms.CharField(max_length=120, required=True, widget=forms.TextInput(
+    password2 = forms.CharField(max_length=120, required=True, label='Confirme seua senha:', widget=forms.TextInput(
             attrs={
-                'class':'finput-group input-group-outline mb-3','placeholder': 'Confirme sua senha'
+                'class':'finput-group input-group-outline mb-3','placeholder': 'Confirme sua senha', 'type': 'password'
             }
         ))
     
@@ -83,7 +83,6 @@ class ProfileUserForm(forms.ModelForm):
             'contato',
             'cpf',
             'cnpj',
-            'status_user',
             'sobre',
             'linkedin_user',
             'github_user',
