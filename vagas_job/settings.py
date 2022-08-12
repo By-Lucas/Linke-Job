@@ -37,6 +37,8 @@ INSTALLED_APPS += [
     'vagas',
     'autenticacao',
     'funcionarios',
+    'departamento',
+    'candidaturas',
 
     'widget_tweaks',
 ]

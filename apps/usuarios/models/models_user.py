@@ -9,14 +9,23 @@ def upload_to(instance ,filename):
     return 'user/{username}/{filename}'.format(
         username=instance.user.username, filename=filename)
 
+
+class Escolaridade(models.Model):
+    escolaridade = models.CharField(max_length=60, null=True, blank=True)
+    outros = models.TextField(max_length=800, null=True, blank=True)
+
+    def __str__(self):
+        return self.escolaridade
+
 class ProfileUser(models.Model):
     TIPO_USUARIO = (
         ('U', 'Usuario'),
         ('E', 'Empresa'),
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_tipo = models.CharField(choices=TIPO_USUARIO, max_length=20, null=True, blank=True, db_column='user_tipo', default='U')
+    escolaridade_user = models.ManyToManyField(Escolaridade)
     idade = models.IntegerField(null=True, blank=True, default=0, db_column='idade')
     cidade = models.CharField(max_length=20, null=True, blank=True, db_column='cidade')
     contato = models.CharField(max_length=11, null=True, blank=True, db_column='contato')

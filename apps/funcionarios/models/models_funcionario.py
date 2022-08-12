@@ -18,7 +18,7 @@ class Funcionario(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
     sobrenome = models.CharField(max_length=100)
-    empresa = models.ManyToManyField(Empresa)
+    empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, null=True, blank=True)
     cargo = models.CharField(choices=CARGOS_CHOICES, null=True, blank=True, max_length=100)
 
     def __str__(self):

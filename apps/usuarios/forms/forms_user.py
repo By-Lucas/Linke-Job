@@ -32,7 +32,7 @@ class SignUpForm(UserCreationForm):
                 'class':'form-control','placeholder': 'Digite seu usuário aqui'
             }
         ))
-    email = forms.EmailField(max_length=120, required=True, label='E-mail:', widget=forms.TextInput(
+    email = forms.EmailField(max_length=120, required=True, label='Email:', widget=forms.TextInput(
             attrs={
                 'class':'form-control','placeholder': 'Digite seu email aqui', 'type': 'email'
             }
@@ -42,9 +42,9 @@ class SignUpForm(UserCreationForm):
                 'class':'form-control','placeholder': 'Digite sua senha aqui', 'type': 'password'
             }
         ))
-    password2 = forms.CharField(max_length=120, required=True, label='Confirme seua senha:', widget=forms.TextInput(
+    password2 = forms.CharField(max_length=120, required=True, label='Confirmar senha:', widget=forms.TextInput(
             attrs={
-                'class':'finput-group input-group-outline mb-3','placeholder': 'Confirme sua senha', 'type': 'password'
+                'class':'form-control','placeholder': 'Confirme sua senha', 'type': 'password'
             }
         ))
     
