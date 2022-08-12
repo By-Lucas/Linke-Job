@@ -43,12 +43,15 @@
       <h1 class="mb-4">Agora é sua escolha</h1>
     </div>
     <div class="row pb-3">
+      <form action="." method="get" class="row pb-3">{% csrf_token %}
       {% for vagas in object_list %}
       <div class="col-lg-3 mb-3">
         <div class="card border-0 shadow-sm mb-2">
           <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
           <div class="card-body bg-light text-center p-4">
-            <input type="hidden" name="vaga" value="{{ vagas.nome }}">
+            
+            <input type="hidden" name='vaga_id' value="{{ vagas.id }}">
+          
             <h5 class="">{{ vagas.nome }}</h5>
             <div class="d-flex justify-content-center mb-3">
               <small class="mr-3">
@@ -74,7 +77,12 @@
                 {% endif %}
                 </small>
               <small class="mr-3">
-                <i class="fa fa-users text-primary"></i> {{request.session.qtd_candidatura}}
+                <i class="fa fa-users text-primary"></i>
+                {% if vagas.nome == vaga_nome %}
+                  {{ request.session.vaga_count }}
+                {% else %}
+                  0
+                {% endif %}
               </small>
             </div>
             <p>
@@ -85,6 +93,7 @@
         </div>
       </div>
       {% endfor %}
+    </form>
       <div class="col-lg-3 mb-3">
         <div class="card border-0 shadow-sm mb-2">
           <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />

@@ -14,21 +14,32 @@ from django.contrib.messages import constants
 class VagasList(ListView):
     model = Vagas
     template_name = 'todas-as-vagas.html'
-
+    
+    def get_context_data(self, **kwargs):
+        context = super(VagasList, self).get_context_data(**kwargs)
+        # FILTER BY CURRENT MONTH, USER
+        vagas = Vagas.objects.all()
+        if self.request.GET.get('vaga_id'):
+            print('passou')
+            date_insert  = self.request.GET.get('vaga_id')
+            filter_ = filter_.filter(vaga_id=date_insert)
+        for vaga_ids in vagas:
+            vaga_id = vaga_ids.id
+            qtd_candidatura = []
+            
+            for quantidade in Candidatura.objects.filter(vaga_id=vaga_id):
+                qtd_candidatura.append(quantidade.vaga.nome)
+            result = [vaga_ids.nome, qtd_candidatura.count(vaga_ids.nome)]
+        
+            
+            if vaga_ids.nome in result[0]:
+                print(result)
+                context['vaga_nome'] = result[0]
+                self.request.session['vaga_count'] = result[1]
+        return context
+    
     def get_queryset(self):
         #empresa_logada = self.request.user.funcionario.empresa
         vagas = Vagas.objects.all()
-        nome_vaga= self.request.GET.get('vaga')
-        print(nome_vaga)
-        lista_n = []
-        for nomes in vagas:
-            nome = nomes.id
-        
-            qtd_candidatura = 0
-            for quantidade in Candidatura.objects.filter(vaga_id=nome):
-                qtd_candidatura+=1
-                print(qtd_candidatura)
-        self.request.session['qtd_candidatura'] = qtd_candidatura
-        #print(dir(self.request.session))
         
         return Vagas.objects.all()

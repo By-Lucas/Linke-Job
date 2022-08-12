@@ -4,11 +4,11 @@ from .models.models_candidato import Candidatura
 
 class CandidatosAdmin(admin.ModelAdmin):
     model = Candidatura
-    list_display = ['caditatos', 'empresa', 'data_cadastro']
+    list_display = ['caditatos', 'data_cadastro']
     
-    @staticmethod
-    def empresa(obj):
-        return obj.vaga.empresa
+    # @staticmethod
+    # def empresa(obj):
+    #     return obj.vaga.empresa
     
     @staticmethod
     def caditatos(obj):

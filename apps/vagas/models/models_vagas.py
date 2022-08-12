@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import pre_save, post_save, m2m_changed
 from django.utils import timezone
 from random import choice
 
@@ -51,6 +52,7 @@ class Vagas(models.Model):
     requisitos = models.TextField(max_length=2000, null=True, blank=True)
     requisitos_adicionais = models.ManyToManyField(RequisitosVaga)
     escolaridade = models.ManyToManyField(EscolaridadeVaga)
+    quantidade = models.IntegerField(default=0)
     data_criacao = models.DateTimeField(auto_now = True)
     atualizado_em = models.DateTimeField(default=timezone.now)
     
@@ -61,3 +63,29 @@ class Vagas(models.Model):
         db_table = 'vagas'
         verbose_name = 'vaga'
         verbose_name_plural = 'vagas'
+        
+
+def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
+    #print(action)
+    #if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
+    #print(instance.total)
+    produtos = instance.vagas.all()
+    print('vagas', produtos)
+    # total = 0
+    # desconto = 0
+    # taxas = 0
+    # for produto in produtos:
+    #     total += produto.preco
+    #     desconto += produto.desconto / 100
+    #     taxas += produto.taxa_envio_outros
+    # if instance.subtotal != total:
+    #     instance.subtotal = total
+    #     instance.save()
+        
+    # instance.valor_produto = total
+    # instance.desconto = desconto * total
+    # instance.subtotal = total - instance.desconto
+    # instance.taxa_envio_outros = taxas
+    # instance.save()
+
+m2m_changed.connect(m2m_changed_cart_receiver, sender = Vagas)
