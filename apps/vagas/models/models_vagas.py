@@ -27,8 +27,24 @@ def gerar_codigo():
     return codigo
 
 class Vagas(models.Model):
+    SENIORIDADE = (
+        ('J', 'Junior'),
+        ('P', 'Pleno'),
+        ('S', 'Senior'),
+        ('E', 'Especialista'),
+        
+    )
+    
+    TIPO = (
+        ('HO', 'Home Office'),
+        ('HI', 'Hibrido'),
+        ('PR', 'Presencial'),
+    )
+    
     criado_por = models.CharField(max_length=50)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT)
+    senioridade = models.CharField(max_length=20, choices=SENIORIDADE, blank=True, null=True)
+    tipo = models.CharField(max_length=20, choices=TIPO, blank=True, null=True)
     codigo = models.CharField(max_length=14, default=gerar_codigo, editable=False, unique=True, blank=True, null=True)
     nome = models.CharField(max_length=60)
     faixa_salarial = models.DecimalField(decimal_places=2, max_digits=9)

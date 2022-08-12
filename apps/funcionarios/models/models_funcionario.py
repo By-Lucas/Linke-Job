@@ -15,7 +15,7 @@ class Funcionario(models.Model):
         ('RS', 'Desenvolvedor React Sênior'),
         ('O', 'Outros'),
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
     sobrenome = models.CharField(max_length=100)
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, null=True, blank=True)
@@ -24,6 +24,8 @@ class Funcionario(models.Model):
     def __str__(self):
         return self.nome
 
+    class Meta():
+        db_table = 'funcionario'
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

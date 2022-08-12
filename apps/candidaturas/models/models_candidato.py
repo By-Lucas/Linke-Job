@@ -17,7 +17,7 @@ def gerar_codigo():
 class Candidatura(models.Model):
     codigo = models.CharField(max_length=14, default=gerar_codigo, editable=False, unique=True, blank=True, null=True)
     candidato = models.ForeignKey(User, on_delete=models.PROTECT)
-    vaga = models.OneToOneField(Vagas, on_delete=models.PROTECT)
+    vaga = models.ManyToManyField(Vagas)
     atualizado_em = models.DateTimeField(default=timezone.now)
     data_cadastro = models.DateTimeField(auto_now = True)
     

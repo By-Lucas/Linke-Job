@@ -43,29 +43,48 @@
       <h1 class="mb-4">Agora é sua escolha</h1>
     </div>
     <div class="row pb-3">
+      {% for vagas in object_list %}
       <div class="col-lg-3 mb-3">
         <div class="card border-0 shadow-sm mb-2">
           <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
           <div class="card-body bg-light text-center p-4">
-            <h5 class="">Software Engine React</h5>
+            <input type="hidden" name="vaga" value="{{ vagas.nome }}">
+            <h5 class="">{{ vagas.nome }}</h5>
             <div class="d-flex justify-content-center mb-3">
               <small class="mr-3">
-                <i class="fa fa-user text-primary"></i> Pleno
+                <i class="fa fa-user text-primary"></i>
+                {% if vagas.senioridade == 'J' %}
+                  Júnior
+                {% elif vagas.senioridade == 'P' %}
+                  Pleno
+                {% elif vagas.senioridade == 'S' %}
+                  Sênior
+                {% elif vagas.senioridade == 'E' %}
+                  Especialista
+                {% endif %}
               </small>
               <small class="mr-3">
-                <i class="fa fa-home text-primary px-4"></i> Híbrido
-              </small>
+                <i class="fa fa-home text-primary px-4"></i>
+                {% if vagas.tipo == 'HO' %}
+                  Home Office
+                {% elif vagas.tipo == 'HI' %}
+                  Híbrido
+                {% elif vagas.tipo == 'PR' %}
+                  Presencial
+                {% endif %}
+                </small>
               <small class="mr-3">
-                <i class="fa fa-users text-primary"></i> 15
+                <i class="fa fa-users text-primary"></i> {{request.session.qtd_candidatura}}
               </small>
             </div>
             <p>
-              Desenvolvedor React
+              {{ vagas.empresa }}
             </p>
             <a href="" class="btn btn-primary px-4 mx-auto my-2">Ver vaga</a>
           </div>
         </div>
       </div>
+      {% endfor %}
       <div class="col-lg-3 mb-3">
         <div class="card border-0 shadow-sm mb-2">
           <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
