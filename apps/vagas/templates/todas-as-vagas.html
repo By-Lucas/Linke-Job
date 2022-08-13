@@ -55,29 +55,15 @@
             <div class="d-flex justify-content-center mb-3">
               <small class="mr-3">
                 <i class="fa fa-user text-primary"></i>
-                {% if vagas.senioridade == 'J' %}
-                  Júnior
-                {% elif vagas.senioridade == 'P' %}
-                  Pleno
-                {% elif vagas.senioridade == 'S' %}
-                  Sênior
-                {% elif vagas.senioridade == 'E' %}
-                  Especialista
-                {% endif %}
+                {{vagas.get_senioridade}}
               </small>
               <small class="mr-3">
                 <i class="fa fa-home text-primary px-4"></i>
-                {% if vagas.tipo == 'HO' %}
-                  Home Office
-                {% elif vagas.tipo == 'HI' %}
-                  Híbrido
-                {% elif vagas.tipo == 'PR' %}
-                  Presencial
-                {% endif %}
+                {{ vagas.get_vaga_tipo }}
                 </small>
               <small class="mr-3">
                 <i class="fa fa-users text-primary"></i>
-                {% if vagas.nome == vaga_nome %}
+                {% if vagas.nome %}
                   {{ request.session.vaga_count }}
                 {% else %}
                   0

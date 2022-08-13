@@ -11,6 +11,7 @@ from candidaturas.models.models_candidato import Candidatura
 from django.contrib import messages
 from django.contrib.messages import constants
 
+
 class VagasList(ListView):
     model = Vagas
     template_name = 'todas-as-vagas.html'
@@ -22,6 +23,7 @@ class VagasList(ListView):
         if self.request.GET.get('vaga_id'):
             print('passou')
             date_insert  = self.request.GET.get('vaga_id')
+            print(date_insert)
             filter_ = filter_.filter(vaga_id=date_insert)
         for vaga_ids in vagas:
             vaga_id = vaga_ids.id
@@ -33,8 +35,8 @@ class VagasList(ListView):
         
             
             print(result)
-            context['vaga_nome'] = result[0]
-            self.request.session['vaga_count'] = result[1]
+            context['vaga_nome'] = vaga_ids.nome
+            self.request.session['vaga_count'] = qtd_candidatura.count(vaga_ids.nome)
         return context
     
     def get_queryset(self):

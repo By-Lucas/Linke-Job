@@ -37,8 +37,13 @@
                 </p>
             </div>
             <div class="col-lg-6" style="border: red 2px solid ;">
-                <p><li class="fa fa-suitcase" aria-hidden="true"></li>
-                    {{ vagas.get_vaga_tipo }} - {{vagas.get_senioridade}}
+                <p><li class="fa fa-users" aria-hidden="true"></li>
+                {% if vagas.nome %}
+                    {{ request.session.vaga_count }}
+                {% else %}
+                    0
+                {% endif %}
+                Candidatos
                 </p>
                 <p><i class="fa fa-building" aria-hidden="true"></i>
                     {{ vagas.get_vaga_tipo }}
@@ -52,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container col-md-8">
         <form class="text-center pb-2" action="">
             <button type="button" class="btn btn-outline-success">
                 <i class="fa fa-plus" aria-hidden="true"></i> Me candidatar
@@ -62,6 +67,10 @@
                 Voltar as vagas
             </a>
         </form>
+        <div class="col-lg-12" style="border: red 2px solid ;">
+            {{vagas.requisitos_adicionais}}
+            {{vagas.requisitos}}
+        </div>
     </div>
 </div>
 
