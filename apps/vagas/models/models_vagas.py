@@ -60,6 +60,26 @@ class Vagas(models.Model):
     def __str__(self):
         return self.nome
     
+    def get_vaga_tipo(self):
+        if self.tipo == 'HO':
+            tipo = 'Home Office'
+        if self.tipo == 'HI':
+            tipo = 'Hibrido'
+        if self.tipo == 'PR':
+            tipo = 'Presencial'
+        return tipo
+    
+    def get_senioridade(self):
+        if self.senioridade == 'J':
+            senioridade = 'Júnior'
+        if self.senioridade == 'P':
+            senioridade = 'Pleno'
+        if self.senioridade == 'S':
+            senioridade = 'Sênior'
+        if self.senioridade == 'E':
+            senioridade = 'Especialista'
+        return senioridade
+    
     class Meta():
         db_table = 'vagas'
         verbose_name = 'vaga'
