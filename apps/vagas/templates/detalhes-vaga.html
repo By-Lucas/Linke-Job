@@ -36,7 +36,31 @@
                     {{vagas.escolaridade}}
                 </p>
             </div>
+            <div class="col-lg-6" style="border: red 2px solid ;">
+                <p><li class="fa fa-suitcase" aria-hidden="true"></li>
+                    {{ vagas.get_vaga_tipo }} - {{vagas.get_senioridade}}
+                </p>
+                <p><i class="fa fa-building" aria-hidden="true"></i>
+                    {{ vagas.get_vaga_tipo }}
+                </p>
+                <p><i class="fa fa-check-square" aria-hidden="true"></i>
+                    {{vagas.faixa_salarial}}
+                </p>
+                <p><i class="fa fa-list" aria-hidden="true"></i>
+                    Seu perfil e compativel com esta vaga
+                </p>
+            </div>
+
+
+
         </div>
+    </div>
+    <div class="container">
+        <form class="text-center pb-2" action="">
+            <button type="button" class="btn btn-outline-success">
+                <i class="fa fa-plus" aria-hidden="true"></i> Me candidatar
+            </button>
+        </form>
     </div>
 </div>
 
