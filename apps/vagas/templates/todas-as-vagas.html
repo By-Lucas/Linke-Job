@@ -43,7 +43,6 @@
       <h1 class="mb-4">Agora é sua escolha</h1>
     </div>
     <div class="row pb-3">
-      <form action="." method="get" class="row pb-3">{% csrf_token %}
       {% for vagas in object_list %}
       <div class="col-lg-3 mb-3">
         <div class="card border-0 shadow-sm mb-2">
@@ -88,12 +87,11 @@
             <p>
               {{ vagas.empresa }}
             </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2">Ver vaga</a>
+            <a href="{% url 'VagaDetailView' vagas.id %}" class="btn btn-primary px-4 mx-auto my-2">Ver vaga</a>
           </div>
         </div>
       </div>
       {% endfor %}
-    </form>
       <div class="col-lg-3 mb-3">
         <div class="card border-0 shadow-sm mb-2">
           <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />

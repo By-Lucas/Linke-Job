@@ -48,11 +48,12 @@ class Vagas(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO, blank=True, null=True)
     codigo = models.CharField(max_length=14, default=gerar_codigo, editable=False, unique=True, blank=True, null=True)
     nome = models.CharField(max_length=60)
-    faixa_salarial = models.DecimalField(decimal_places=2, max_digits=9)
+    faixa_salarial = models.CharField(max_length=50, null=True, blank=True)
     requisitos = models.TextField(max_length=2000, null=True, blank=True)
     requisitos_adicionais = models.ManyToManyField(RequisitosVaga)
     escolaridade = models.ManyToManyField(EscolaridadeVaga)
     quantidade = models.IntegerField(default=0)
+    status = models.BooleanField(default=True, help_text='Status da vaga')
     data_criacao = models.DateTimeField(auto_now = True)
     atualizado_em = models.DateTimeField(default=timezone.now)
     

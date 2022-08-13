@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models.models_candidato import Candidatura
+from .models.models_candidato import Candidatura, RequisitosCandidatura, EscolaridadeCandidatura
 
 class CandidatosAdmin(admin.ModelAdmin):
     model = Candidatura
@@ -15,3 +15,6 @@ class CandidatosAdmin(admin.ModelAdmin):
         return f'{obj.candidato} : {obj.codigo}'
     
 admin.site.register(Candidatura, CandidatosAdmin)
+
+admin.site.register(RequisitosCandidatura)
+admin.site.register(EscolaridadeCandidatura)

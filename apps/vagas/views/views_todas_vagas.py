@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView, TemplateView, View
 from django.urls import reverse_lazy
 
 from vagas.models.models_vagas import Vagas
@@ -32,10 +32,9 @@ class VagasList(ListView):
             result = [vaga_ids.nome, qtd_candidatura.count(vaga_ids.nome)]
         
             
-            if vaga_ids.nome in result[0]:
-                print(result)
-                context['vaga_nome'] = result[0]
-                self.request.session['vaga_count'] = result[1]
+            print(result)
+            context['vaga_nome'] = result[0]
+            self.request.session['vaga_count'] = result[1]
         return context
     
     def get_queryset(self):
@@ -43,3 +42,9 @@ class VagasList(ListView):
         vagas = Vagas.objects.all()
         
         return Vagas.objects.all()
+    
+
+#Class Based View
+class VagaDetailView(DetailView):
+    model = Vagas
+    template_name = "detalhes-vaga.html"
