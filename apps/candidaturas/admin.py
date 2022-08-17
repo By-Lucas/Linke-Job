@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .models.models_qtd_candidaturas import QuatidadeCandidatura
 from .models.models_candidato import Candidatura, RequisitosCandidatura, EscolaridadeCandidatura
 
 class CandidatosAdmin(admin.ModelAdmin):
@@ -16,5 +17,6 @@ class CandidatosAdmin(admin.ModelAdmin):
     
 admin.site.register(Candidatura, CandidatosAdmin)
 
+admin.site.register(QuatidadeCandidatura)
 admin.site.register(RequisitosCandidatura)
 admin.site.register(EscolaridadeCandidatura)

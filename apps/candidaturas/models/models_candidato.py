@@ -33,7 +33,7 @@ class Candidatura(models.Model):
     candidato = models.ForeignKey(User, on_delete=models.CASCADE)
     vaga = models.ForeignKey(Vagas, on_delete=models.CASCADE)
     requisitos = models.TextField(max_length=2000, null=True, blank=True)
-    requisitos_adicionais = models.OneToOneField(RequisitosCandidatura, on_delete=models.CASCADE, null=True, blank=True)
+    requisitos_adicionais = models.ManyToManyField(RequisitosCandidatura, null=True, blank=True)
     escolaridade = models.ForeignKey(EscolaridadeCandidatura, on_delete=models.CASCADE, null=True, blank=True)
     escolhido = models.BooleanField(default=False)
     atualizado_em = models.DateTimeField(default=timezone.now)

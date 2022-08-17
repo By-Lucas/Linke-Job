@@ -1,0 +1,21 @@
+<!-- Modal -->
+<form action="{% url 'pegar_dados' vagas.id %}" method="post">{% csrf_token %}
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Vaga para: {{vagas.nome}}</h5>
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">X</button>
+          </div>
+          <div class="modal-body">
+            <input type="text" name="nome" value="{{vagas.nome}}">
+            <input type="text" name="id" value="{{vagas.id}}">
+            <input type="text" name="nome" value="{{vagas.nome}}">
+            <input type="text" name="nome" value="{{vagas.nome}}">
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success">Me candidatar</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+</form>

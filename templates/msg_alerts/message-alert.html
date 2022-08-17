@@ -1,15 +1,16 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div style="align-items: center; display:flex; justify-content: center;">
     {{ message }}
     <br>
     {% if messages %}
         {% for message in messages %}
-            <div class=" col-md-6 alert {{message.tags}} alert-dismissible fade show" style="display:flex; justify-content: center;">
+        <div class="alert alert-{{message.tags}}  col-md-6  alert-dismissible fade show" style="display:flex; justify-content: center;">
                 {{message}}
                 <div class="col-auto text-center">
-                    <button class="btn-close btn-sm text-sm" type="button" onclick="$(this).closest('.alert').remove()"></button>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="$(this).closest('.alert').remove()">X</button>
                 </div>
-            </div>
-            {% if message.extra_tags != 'stay' %}
+        </div>
+        {% if message.extra_tags != 'stay' %}
             <script>
                 $(function() {
                     if ($('.redirect-msg').length > 0) {
@@ -22,7 +23,7 @@
                     }
                 })
             </script>
-            {% endif %}
-            {% endfor %}
-    {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 </div>

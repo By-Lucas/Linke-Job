@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+{% load static %}
+
+{% block body %} 
+<form class="row" action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form|bootstrap}}
+
+    <br>
+        <button type="submit" class="btn btn-success col-md-2">Salvar</button>
+        <!--object.id = PASSADO COMO PARAMENTRO O ID DO FUNCIONARIO QUE ESTA ABERTO-->
+        <a href="{% url 'ListVagasOn' %}" class="btn btn-warning col-md-3">Ver vagas da empresa</a>
+</form>
+
+{% endblock body %}

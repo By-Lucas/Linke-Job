@@ -39,8 +39,10 @@ INSTALLED_APPS += [
     'funcionarios',
     'departamento',
     'candidaturas',
+    'administracao',
 
     'widget_tweaks',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [

@@ -10,10 +10,11 @@ urlpatterns = [
     path("auth/", include('autenticacao.urls')),
     path("usuario/", include('usuarios.urls')),
     path("departamento/", include('departamento.urls')),
+    path("administracao/", include('administracao.urls')),
     #path("empresa/", include('empresas.urls')),
     #path("vaga/", include('vagas.urls')),
     #path("funcionario/", include('funcionarios.urls')),
-    #path("candidato/", include('candidaturas.urls')),
+    #path("candidatura/", include('candidaturas.urls')),
 ]
 
 if settings.DEBUG:

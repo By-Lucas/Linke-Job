@@ -22,12 +22,40 @@ class ProfileUser(models.Model):
         ('U', 'Usuario'),
         ('E', 'Empresa'),
     )
+    UF_CHOICES = (
+        ('AC', 'Acre'),
+        ('AL', 'Alagoas'),
+        ('AP', 'Amapá'),
+        ('BA', 'Bahia'),
+        ('CE', 'Ceará'),
+        ('DF', 'Distrito Federal'),
+        ('ES', 'Espírito Santo'),
+        ('GO', 'Goiás'),
+        ('MA', 'Maranão'),
+        ('MG', 'Minas Gerais'),
+        ('MS', 'Mato Grosso do Sul'),
+        ('MT', 'Mato Grosso'),
+        ('PA', 'Pará'),
+        ('PB', 'Paraíba'),
+        ('PE', 'Pernanbuco'),
+        ('PI', 'Piauí'),
+        ('PR', 'Paraná'),
+        ('RJ', 'Rio de Janeiro'),
+        ('RN', 'Rio Grande do Norte'),
+        ('RO', 'Rondônia'),
+        ('RR', 'Roraima'),
+        ('RS', 'Rio Grande do Sul'),
+        ('SC', 'Santa Catarina'),
+        ('SE', 'Sergipe'),
+        ('SP', 'São Paulo'),
+        ('TO', 'Tocantins')
+    )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_tipo = models.CharField(choices=TIPO_USUARIO, max_length=20, null=True, blank=True, db_column='user_tipo', default='U')
     escolaridade_user = models.ManyToManyField(Escolaridade)
     idade = models.IntegerField(null=True, blank=True, default=0, db_column='idade')
-    cidade = models.CharField(max_length=20, null=True, blank=True, db_column='cidade')
+    cidade = models.CharField(max_length=20, choices=UF_CHOICES, null=True, blank=True, db_column='cidade')
     contato = models.CharField(max_length=11, null=True, blank=True, db_column='contato')
     endereco = models.CharField(max_length=20, null=True, blank=True, db_column='endereco')
     numero_casa = models.IntegerField(null=True, blank=True, db_column='numero_casa')

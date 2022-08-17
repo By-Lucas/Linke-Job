@@ -3,13 +3,13 @@ from candidaturas.models.models_candidato import Candidatura, RequisitosCandidat
 
 
 class CandidaturaForm(forms.ModelForm):
-    requisitos_adicionais = forms.Modelmultiplechoicefield (label ='Requisitos adicionais',
-                                            widget=forms.CheckboxSelectMultiple,
-                                            queryset=RequisitosCandidatura.objects.filter(enable=True))
-    escolaridade = forms.Modelmultiplechoicefield (label ='Escolaridade',
-                                            widget=forms.CheckboxSelectMultiple,
-                                            queryset=EscolaridadeCandidatura.objects.filter(enable=True))
+    # requisitos_adicionais = forms.Modelmultiplechoicefield (label ='Requisitos adicionais',
+    #                                         widget=forms.CheckboxSelectMultiple,
+    #                                         queryset=RequisitosCandidatura.objects.filter(enable=True))
+    # escolaridade = forms.Modelmultiplechoicefield (label ='Escolaridade',
+    #                                         widget=forms.CheckboxSelectMultiple,
+    #                                         queryset=EscolaridadeCandidatura.objects.filter(enable=True))
     
     class Meta:
         model = Candidatura
-        fields = '__all__'
+        fields = ['candidato', 'vaga', 'requisitos', 'requisitos_adicionais','escolaridade']

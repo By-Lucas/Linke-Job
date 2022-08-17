@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.models import Group
 from django.urls import reverse_lazy
@@ -30,31 +31,16 @@ class FuncionariosList(DetailView):
         #empresa_logada = self.request.user.funcionario.empresa
         return Funcionario.objects.all(empresa=empresa_logada)
 
-class ProfileUpdateView(TemplateView):
-    template_name = 'profile/edit-profile.html'
-    def get(self, request):
-        user = request.user
-        profile = user.profileuser
-        user_form = UserForm(instance=user)
-        profile_form = ProfileUserForm(instance=profile)
-        context = {
-            'user_form': user_form,
-            'profile_form': profile_form,
-        }
-        return render(request, self.template_name, context)
+# def candidatar(self, request):
+#     template_name = 'detalhes-vaga.html'
 
-    def post(self, request):
-        user = request.user
-        profile = user.profileuser
-        user_form = UserForm(request.POST, instance=user)
-        profile_form = ProfileUserForm(request.POST, request.FILES, instance=profile)
-        if user_form.is_valid() and profile_form.is_valid():# and config_form.is_valid()
-            user_form.save()
-            profile_form.save()
-            messages.add_message(request, constants.SUCCESS, 'Perfil editado com sucesso!')
-            return redirect(reverse_lazy('profile'))
-        context = {
-            'user_form':user_form,
-            'profile_form':profile_form,
-        }
-        return self.render_to_response(context)
+#     user = request.user
+#     candidatura_form = CandidaturaForm(request.POST)
+#     if candidatura_form.is_valid():
+#         candidatura_form.save()
+#         messages.add_message(request, constants.SUCCESS, 'candidatura efetuada com sucesso!')
+#         return redirect(reverse_lazy('profile'))
+#     context = {
+#         'form':candidatura_form,
+#     }
+#     return render(request, template_name, context)
