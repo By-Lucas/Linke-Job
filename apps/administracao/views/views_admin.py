@@ -11,5 +11,5 @@ class Admin(TemplateView):
     
 class Delete(DeleteView):
     model = Vagas
-    template_name='modal-admin/delete-admin.html'
+    template_name='admin-templates/delete-admin.html'
     success_url = reverse_lazy('ListVagasOn')

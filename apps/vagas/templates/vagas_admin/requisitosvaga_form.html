@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bootstrap %}
+
+{% block body %}
+<div class="container-fluid bg-primary mb-4">
+    <div class="d-flex flex-column align-items-center justify-content-center"
+        style="min-height: 150px">
+        <h1 class="font-weight-bold text-white">Novo requitisito</h1>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+        <form action="" class="col-lg-6" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-lg-12 ">
+                {{form|bootstrap}}
+            </div>
+            <div class=" d-flex align-items-center justify-content-center mb-4">
+                <button class="btn btn-primary mr-4"  type="submit"><li class="fa fa-plus mr-2"></li>Novo requitisito</button>
+                <a href="{% url 'CreateVaga' %}" type='button' class="btn btn-warning text-white ">Voltar</a>
+            </div>
+            <ul class="list-group ">
+                <li class="list-group-item active" aria-disabled="true">Requisitos adicionais</li>
+                {% for requisitos in requisitos %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        {{requisitos}}
+                    </div>
+                    <a href="{% url 'delete_requisito' requisitos.id %}" type='button' class="btn btn-danger text-white ">Deletar</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+</div>
+{% endblock body %}

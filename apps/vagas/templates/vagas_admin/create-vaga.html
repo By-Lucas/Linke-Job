@@ -3,17 +3,116 @@
 {% load bootstrap %}
 {% load static %}
 
-{% block body %} 
-<div class="container">
-    <form class="row" action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form|bootstrap}}
+{% block body %}
+<div class="container-fluid bg-primary mb-4">
+    <div class="d-flex flex-column align-items-center justify-content-center"
+        style="min-height: 150px">
+        <h2 class="font-weight-bold text-white">Cadastrar nova vaga</h2>
+    </div>
+</div>
 
-        <br>
+<div class="container">
+    <form class="row g-3 needs-validation" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-6 mb-2">
+            <label class="control-label" for="id_criado_por">Empresa</label>
+            <input name="empresa_logada" value="{{request.user.funcionario.empresa}}" class=" form-control" required="" id="id_empresa" disabled>
+            <input type="hidden" name="empresa" value="{{request.user.funcionario.empresa.id}}" class=" form-control" required="" id="id_empresa">
+            
+        </div>
+        <div class="col-md-6 mb-2">
+            <label class="control-label  " for="id_criado_por">Criador</label>
+            <input type="text" name="usuario logado" value="{{request.user.username}}" maxlength="50" class=" form-control"  required="" id="id_criado_por" disabled>
+            <input hidden type="text" name="criado_por" maxlength="50" value="{{request.user.username}}" class=" form-control"  required="" id="id_criado_por">
+        </div>
+        <div class="col-md-4 mb-2">
+            <label class="control-label" for="id_nome">Nome da vaga</label>
+            <input type="text" name="nome" maxlength="60" class="form-control" required="" id="id_nome">
+        </div>
+        <div class="col-md-4 mb-2">
+            {{form.senioridade|bootstrap}}
+        </div>
+        <div class="col-md-4 mb-2">
+            {{form.tipo|bootstrap}}
+        </div>
+        <div class="col-md-4 mb-2">
+            {{form.faixa_salarial|bootstrap}}
+        </div>
+        <div class="col-md-4 mb-2">
+            {{form.escolaridade|bootstrap}}
+        </div>
+        <div class="form-group col-md-4 mb-2">
+            {{form.status|bootstrap}}
+        </div>
+        <div class="col-md-8 mb-2">
+            {{form.requisitos|bootstrap}}
+        </div>
+        <div class="col-md-4">
+            <div class="d-inline-flex m-4">
+                <div class="list-group">
+                    <label class="list-group-item">
+                        <a href="{% url 'CreateRequisito' %}" class="mr-2"><li class="fa fa-plus"></li> Novo requisito</a>
+                        {{form.requisitos_adicionais|bootstrap}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="input-group input-group-outline my-1">
+            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                <div class="mb">
+                    <label for="imagem_perfil" class="form-label">Perfil</label>
+                    <input class="form-control" type="file" name="image" id="flImage" accept="image/*">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-2">
+            <div class="col-mb-2">
+                <img src="{% static 'img/home/header.png' %}" class="imageThumb img-fluid" id="imgPhoto" alt="">
+            </div>
+        </div>
+        <div class="col-12 align-items-center d-inline-flex justify-content-center">
             <button type="submit" class="btn btn-success col-md-2">Salvar</button>
-            <!--object.id = PASSADO COMO PARAMENTRO O ID DO FUNCIONARIO QUE ESTA ABERTO-->
-            <a href="{% url 'ListVagasOn' %}" class="btn btn-warning col-md-3">Ver vagas da empresa</a>
+            <a href="{% url 'ListVagasOn' %}" class="btn btn-warning col-md-3">Vagas da empresa</a>
+        </div>
     </form>
 </div>
+
+<div class="modal fade" id="requisito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    {% include 'modal/modal-requisito.html' %}
+</div>
+
+<style>
+    .imageThumb {
+        max-height: 150px;
+        max-height: 150px;
+        border: none;
+        margin: 10px 10px 0 0;
+        padding: 1px;
+    }
+</style>
+<script>
+
+    let photo = document.getElementById('imgPhoto');
+    let file = document.getElementById('flImage');
+
+    photo.addEventListener('click', () => {
+        file.click();
+    });
+
+    file.addEventListener('change', () => {
+
+        if (file.files.length <= 0) {
+            return;
+        }
+
+        let reader = new FileReader();
+
+        reader.onload = () => {
+            photo.src = reader.result;
+        }
+
+        reader.readAsDataURL(file.files[0]);
+    });
+</script>
 
 {% endblock body %}

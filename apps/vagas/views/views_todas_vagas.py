@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator, InvalidPage
 from django.db.models import Q
 
+from vagas.models.candidaturas_vaga import QtdCandidatura
 from vagas.models.models_vagas import Vagas
 from candidaturas.models.models_qtd_candidaturas import QuatidadeCandidatura
 
@@ -35,7 +36,7 @@ class VagasList(ListView):
                 Q(empresa__nome__icontains=queryset)
             )
         if not vagas:
-            messages.add_message(self.request, constants.WARNING, f'Vaga "{queryset.upper()}" não encontrada')
+            messages.add_message(self.request, constants.WARNING, f'Nenhuma vaga disponivel')
 
         # Paginação
         ITEMS_PER_PAGE = 8
@@ -47,50 +48,16 @@ class VagasList(ListView):
             vagas_pages = paginator.page(page)
         except InvalidPage:
             vagas_pages = paginator.page(1)
-            
 
-        if self.request.GET.get('vaga_id'):
-            print('passou')
-            date_insert  = self.request.GET.get('vaga_nome')
-            print(date_insert)
-            filter_ = filter_.filter(vaga_id=date_insert)
-        lista = []
-        for vaga_ids in vagas:
-            for cand in vaga_ids.candidatura_set.filter(vaga_id=vaga_ids):
-                if str(vaga_ids.nome) in cand.vaga.nome:
-                    lista.append(cand.vaga.nome)
-                    #lista.count(lista)
-        print(lista)
-        vaga_id = vaga_ids.id
-        qtd_candidatura = []
-            
-
+        
         context = {
-            'qtd':lista,
-            'total': total,
             'vagas': vagas,
-            'vagas_pages': vagas_pages
+            'vagas_pages': vagas_pages,
+            'count_candidatura': QuatidadeCandidatura.objects.all()
         }
         
         return context
-    
-    # def get_queryset(self):
-    #     vagas = Vagas.objects.all()
-    #     queryset = self.request.GET.get('q')
-    #     if queryset:
-    #         vagas = Vagas.objects.filter(
-    #             Q(nome__icontains=queryset)|
-    #             Q(faixa_salarial__icontains=queryset)|
-    #             Q(senioridade__icontains=queryset)|
-    #             Q(tipo__icontains=queryset)|
-    #             Q(empresa__nome__icontains=queryset)
-    #         )
-    #     if not vagas:
-    #         messages.warning(self.request, 'Nenhum sorteio encontrado')
-    #         #empresa_logada = self.request.user.funcionario.empresa
-        
-    #     return vagas
-    
+
 
 #Class Based View
 class VagaDetailView(DetailView):
@@ -98,30 +65,29 @@ class VagaDetailView(DetailView):
     template_name = "detalhes-vaga.html"
 
 
-
 def pegar_dados(request, id):
     vagas = Vagas.objects.all()
-    qtd_candidatos = QuatidadeCandidatura.objects.all()
+    qtd_candidatos = QtdCandidatura.objects.all()
     #if request.method == 'POST':
     #print(dir(qtd_candidatos))
-    date_insert  = request.GET.get('nome')
-    vaga_id =  request.GET.get('id')
+    date_insert  = request.POST.get('nome')
+    vaga_id =  request.POST.get('id')
     #print(date_insert)
     lista = []
     n=0
     for vaga_ids in vagas:
-        for cand in vaga_ids.candidatura_set.filter(vaga_id=vaga_ids):
-            if str(date_insert) in cand.vaga.nome:
+        ids_ = vaga_ids
+        for cand in vaga_ids.candidatura_set.filter(vaga=ids_):
                 n+=1
                 lista.append(cand.vaga.nome)
-    print()
-    if QuatidadeCandidatura.objects.filter(vaga=date_insert):
-        qd_candidatos = QuatidadeCandidatura.objects.update(id=vaga_id, vaga=lista[0], quantidade_candidatos=n)
-    else:
-        qd_candidatos = QuatidadeCandidatura.objects.create(id=vaga_id, vaga=lista[0], quantidade_candidatos=n)
-                
+        print(lista)
+        if QtdCandidatura.objects.exists():
+                qd_candidatos = QtdCandidatura.objects.update(vaga_candidatada=vaga_id, quantidade_candidatos=n)
+        else:
+            qd_candidatos = QtdCandidatura.objects.create(vaga_candidatada=vaga_id, quantidade_candidatos=n)
+            
     print(n)
     print(lista)
+    
 
-
-    return HttpResponse('ok')
+    return HttpResponse('OK')

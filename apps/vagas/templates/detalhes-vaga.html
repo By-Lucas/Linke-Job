@@ -10,11 +10,10 @@
 <div class="container-fluid bg-primary mb-4">
     <div class="d-flex flex-column align-items-center justify-content-center"
         style="min-height: 150px">
-        <h2 class="font-weight-bold text-white">{{vagas.nome}} - {{vagas.faixa_salarial}}</h2>
+        <h2 class="font-weight-bold text-white">{{vagas.nome}} - R${{vagas.faixa_salarial}}</h2>
         <div class="d-inline-flex text-white">
                 <p class="m-0"><strong> Empresa: {{vagas.empresa}}</strong></p>
         </div>
-
     </div>
 </div>
 <!-- Header End -->
@@ -29,7 +28,7 @@
                         <a href="{% url 'CreateVaga' %}" class="btn btn-outline-success mr-2">
                             <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
                         </a>
-                        <a href="{% url 'UpdateVaga' vagas.id %}" class="btn btn-outline-primary mr-2">
+                        <a href="{% url 'UpdateVaga' vagas.pk %}" class="btn btn-outline-primary mr-2">
                             <i class="fa fa-plus" aria-hidden="true"></i> Editar
                         </a>
                         <button type="button" class="btn btn-outline-danger mr-2" data-bs-toggle="modal" data-bs-target="#deletar">
@@ -56,11 +55,7 @@
             </div>
             <div class="col-lg-6">
                 <p><li class="fa fa-users" aria-hidden="true"></li>
-                {% if vagas.nome %}
-                    {{ request.session.vaga_count }}
-                {% else %}
-                    0
-                {% endif %}
+                    {{count.quantidade_candidatos}}
                     Candidatos
                 </p>
                 <p><i class="fa fa-calendar" aria-hidden="true"></i>
@@ -120,7 +115,7 @@
             </p>
         </div>
         <div class="col-lg-6">
-            <h3>Diferenciais</h3>
+            <h3>Beneficios</h3>
             <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
                 Informação
             </p>
@@ -134,17 +129,16 @@
                 Informação
             </p>
         </div>
-    </div>
-    <!-- Modal Candidatar-->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        {% include 'modal/modal-candidatar.html' %}
-    </div>
+        <!-- Modal Candidatar-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {% include 'modal/modal-candidatar.html' %}
+        </div>
 
-    <!-- Modal Deletar-->
-    <div class="modal fade" id="deletar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        {% include 'modal/modal-delete.html' %}
+        <!-- Modal Deletar-->
+        <div class="modal fade" id="deletar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {% include 'modal/modal-delete.html' %}
+        </div>
     </div>
-
 </div>
 
 

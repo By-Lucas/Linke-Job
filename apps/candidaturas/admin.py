@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models.models_qtd_candidaturas import QuatidadeCandidatura
-from .models.models_candidato import Candidatura, RequisitosCandidatura, EscolaridadeCandidatura
+from candidaturas.models.models_qtd_candidaturas import QuatidadeCandidatura
+from candidaturas.models.models_candidato import Candidatura, RequisitosCandidatura, EscolaridadeCandidatura
 
 class CandidatosAdmin(admin.ModelAdmin):
     model = Candidatura
