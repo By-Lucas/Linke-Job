@@ -51,7 +51,7 @@
             <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
             <div class="card-body bg-light text-center p-4">
               
-              <input type="hidden" name='vaga_nome' value="{{ vagas.id }}">
+              <input type="hidden" name='vaga_nome' value="{{ vagas }}">
             
               <h5 class="">{{ vagas.nome }}</h5>
               <div class="d-flex justify-content-center mb-3">
@@ -65,9 +65,11 @@
                   </small>
                 <small class="mr-3">
                   <i class="fa fa-users text-primary"></i>
-                    {% for count in count_candidatura %} 
-                      {% if count.vaga == vagas.nome %}
-                        {{count.quantidade_candidatos}} 
+                    {% for count in vagas.qtdcandidatura_set.all %}
+                      {% if vagas == count %}
+                        {{count.quantidade_candidatos}}
+                      {% else %}
+                        0
                       {% endif %}
                     {% endfor %}
                 </small>

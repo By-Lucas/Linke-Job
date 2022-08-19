@@ -11,6 +11,7 @@ from django.db.models import Q
 from vagas.models.candidaturas_vaga import QtdCandidatura
 from vagas.models.models_vagas import Vagas
 from candidaturas.models.models_qtd_candidaturas import QuatidadeCandidatura
+from candidaturas.models.models_candidato import Candidatura
 
 # Alertas de messagens
 from django.contrib import messages
@@ -48,31 +49,32 @@ class VagasList(ListView):
             vagas_pages = paginator.page(page)
         except InvalidPage:
             vagas_pages = paginator.page(1)
-
+        
         
         context = {
             'vagas': vagas,
             'vagas_pages': vagas_pages,
-            'count_candidatura': QuatidadeCandidatura.objects.all()
         }
         
         return context
+    
+    
 
 
 #Class Based View
 class VagaDetailView(DetailView):
     model = Vagas
     template_name = "detalhes-vaga.html"
-
+    
 
 def pegar_dados(request, id):
     vagas = Vagas.objects.all()
+    candidatura = Candidatura.objects.all()
+    cart_obj, new_obj = Candidatura.objects.new_or_get(request)
+    
     qtd_candidatos = QtdCandidatura.objects.all()
-    #if request.method == 'POST':
-    #print(dir(qtd_candidatos))
     date_insert  = request.POST.get('nome')
     vaga_id =  request.POST.get('id')
-    #print(date_insert)
     lista = []
     n=0
     for vaga_ids in vagas:
@@ -80,14 +82,14 @@ def pegar_dados(request, id):
         for cand in vaga_ids.candidatura_set.filter(vaga=ids_):
                 n+=1
                 lista.append(cand.vaga.nome)
-        print(lista)
-        if QtdCandidatura.objects.exists():
-                qd_candidatos = QtdCandidatura.objects.update(vaga_candidatada=vaga_id, quantidade_candidatos=n)
-        else:
-            qd_candidatos = QtdCandidatura.objects.create(vaga_candidatada=vaga_id, quantidade_candidatos=n)
-            
+        # if QtdCandidatura.objects.exists():
+        #         qd_candidatos = QtdCandidatura.objects.update(vaga_candidatada=vaga_id, quantidade_candidatos=n)
+        # else:
+        #     qd_candidatos = QtdCandidatura.objects.create(vaga_candidatada=vaga_id, quantidade_candidatos=n)
+        
+    quantidade = n
     print(n)
     print(lista)
     
 
-    return HttpResponse('OK')
+    return HttpResponse('ok')

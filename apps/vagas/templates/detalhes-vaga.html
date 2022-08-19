@@ -40,6 +40,8 @@
         {% endif %}
         <div class="row pb-3">
             <div class="col-lg-6">
+            <input type="hidden" name='vaga_id' value="{{ vagas.id }}">
+
                 <p><li class="fa fa-suitcase" aria-hidden="true"></li>
                     {{ vagas.get_vaga_tipo }} - {{vagas.get_senioridade}}
                 </p>
@@ -55,7 +57,7 @@
             </div>
             <div class="col-lg-6">
                 <p><li class="fa fa-users" aria-hidden="true"></li>
-                    {{count.quantidade_candidatos}}
+                    {{candidatura_id}}
                     Candidatos
                 </p>
                 <p><i class="fa fa-calendar" aria-hidden="true"></i>

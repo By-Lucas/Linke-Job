@@ -11,4 +11,4 @@ class QtdCandidatura(models.Model):
     data_cadastro = models.DateTimeField(auto_now = True)
 
     def __str__(self):
-        return f'Candidatos: {self.quantidade_candidatos} a vaga {self.vaga_candidatada}'
+        return self.vaga_candidatada.nome
