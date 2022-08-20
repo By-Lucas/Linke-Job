@@ -52,8 +52,8 @@
             <div class="card-body bg-light text-center p-4">
               
               <input type="hidden" name='vaga_nome' value="{{ vagas }}">
-            
-              <h5 class="">{{ vagas.nome }}</h5>
+              <input type="hidden" name='vaga_id' value="{{ vagas.id }}">
+
               <div class="d-flex justify-content-center mb-3">
                 <small class="mr-3">
                   <i class="fa fa-user text-primary"></i>
@@ -64,14 +64,13 @@
                   {{ vagas.get_vaga_tipo }}
                   </small>
                 <small class="mr-3">
-                  <i class="fa fa-users text-primary"></i>
-                    {% for count in vagas.qtdcandidatura_set.all %}
-                      {% if vagas == count %}
-                        {{count.quantidade_candidatos}}
-                      {% else %}
-                        0
-                      {% endif %}
-                    {% endfor %}
+                  {% if vagas.status == True %}
+                    <i class="fa fa-circle-check text-success"></i>
+                    Ativo
+                  {% else %}
+                  <i class="fa-solid fa-ban text-danger"></i>
+                    Inativo
+                  {% endif %}
                 </small>
               </div>
               <p>

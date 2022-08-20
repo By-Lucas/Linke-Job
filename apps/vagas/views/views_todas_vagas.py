@@ -22,8 +22,8 @@ class VagasList(ListView):
     model = Vagas
     template_name = 'todas-as-vagas.html'
     
-    def get_context_data(self, **kwargs):
-        context = super(VagasList, self).get_context_data(**kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super(VagasList, self).get_context_data(*args, **kwargs)
         vagas = Vagas.objects.all()
 
         # Campo de pesquisa
@@ -49,28 +49,37 @@ class VagasList(ListView):
             vagas_pages = paginator.page(page)
         except InvalidPage:
             vagas_pages = paginator.page(1)
-        
-        
+
+
         context = {
             'vagas': vagas,
             'vagas_pages': vagas_pages,
         }
-        
         return context
-    
-    
 
 
-#Class Based View
+
 class VagaDetailView(DetailView):
     model = Vagas
     template_name = "detalhes-vaga.html"
     
+    def get_context_data(self, *args, **kwargs):
+        context = super(VagaDetailView, self).get_context_data(*args, **kwargs)
+        idds = self.kwargs.get('pk')
+        nomes =[]
+        qtd_candidatura = 0
+        for id_v in Vagas.objects.all():
+            for quantidade in id_v.candidatura_set.filter(vaga=idds):
+                qtd_candidatura+=1
+        context['quantidade'] = qtd_candidatura
+        return context
+
 
 def pegar_dados(request, id):
     vagas = Vagas.objects.all()
     candidatura = Candidatura.objects.all()
     cart_obj, new_obj = Candidatura.objects.new_or_get(request)
+    print('new_obj', new_obj)
     
     qtd_candidatos = QtdCandidatura.objects.all()
     date_insert  = request.POST.get('nome')

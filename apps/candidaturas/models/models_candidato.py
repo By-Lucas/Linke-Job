@@ -21,27 +21,35 @@ class CandidaturaManager(models.Manager):
             n = 0
             for id_v in Vagas.objects.all():
                 for quantidade in id_v.candidatura_set.filter(vaga=id_vaga):
-                    nomes.append(quantidade.vaga.id)
+                    nomes.append(quantidade.vaga.nome)
                     n+=1
+                    quantidade=nomes.count(quantidade.vaga.nome)
+                
+            #print(type(nomes[0]), type(int(id_vaga)), 'agora foi atualizado')
             
-            new_obj = False
-            if not QtdCandidatura.objects.exists():
-                cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
-                print(nomes[0], 'agora foi criado')
-            else:
+            new_obj = n
+            # cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
+            # print(nomes[0], 'agora foi criado')
+            if QtdCandidatura.objects.exists():
                 cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
-                print(nomes[0], 'agora foi atualizado')
+                #print(nomes[0], id_vaga, 'agora foi atualizado')
+            elif QtdCandidatura.objects.exists() and nomes[0] == int(id_vaga):
+                cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
+                #print(nomes[0],id_vaga, 'agora foi atualizado')
+            else:
+                cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
+                #print(nomes[0], id_vaga, 'agora foi criado')
         else:
             print('KKK agora foi criado')
             
             cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=1)
-            new_obj = True
-            request.session['candidatura_id'] = cart_obj
+            new_obj = n
+            request.session['qtd_candidatura'] = n
         return cart_obj, new_obj
     
     def get(self, request):
         cart_id = request.session.get("candidatura_id", None)
-        requestsession['cart_items'] = cart_id
+        request.session['qtd_candidatura'] = cart_id
         #qs = self.get_queryset().filter(id=cart_id)
         return cart_id
     
