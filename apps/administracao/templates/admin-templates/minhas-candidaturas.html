@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}- Minhas candidaturas {% endblock title %}
+
+{% block body %}
+<div class="container">
+    <h1>Minhas candidaturas</h1>
+    {% for candidaturas in object_list %}
+        {{candidaturas}}
+    {% endfor %}
+</div>
+{% endblock body %}

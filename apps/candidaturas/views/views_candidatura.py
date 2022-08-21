@@ -11,36 +11,16 @@ from candidaturas.models.models_candidato import Candidatura
 from candidaturas.forms import CandidaturaForm
 
 #Class Based View
-class CandidaturaDetailView(DetailView):
-    template_name = "products/detail.html"
+class CandidaturaDetailView(ListView):
+    model = Candidatura
+    template_name = "admin-templates/minhas-candidaturas.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(CandidaturaDetailView, self).get_context_data(*args, **kwargs)
         return context
 
-    def get_object(self, *args, **kwargs):
-        pk = self.kwargs.get('pk')
-        instance = ProdutoModel.objects.get_by_id(pk)
-        if instance is None:
-            raise Http404("Esse produto não existe!")
-        return instance
-
-class FuncionariosList(DetailView):
-    model = CandidaturaForm
     def get_queryset(self):
-        #empresa_logada = self.request.user.funcionario.empresa
-        return Funcionario.objects.all(empresa=empresa_logada)
+        usuario_logado = self.request.user
+        return Candidatura.objects.filter(candidato=usuario_logado)
 
-# def candidatar(self, request):
-#     template_name = 'detalhes-vaga.html'
 
-#     user = request.user
-#     candidatura_form = CandidaturaForm(request.POST)
-#     if candidatura_form.is_valid():
-#         candidatura_form.save()
-#         messages.add_message(request, constants.SUCCESS, 'candidatura efetuada com sucesso!')
-#         return redirect(reverse_lazy('profile'))
-#     context = {
-#         'form':candidatura_form,
-#     }
-#     return render(request, template_name, context)

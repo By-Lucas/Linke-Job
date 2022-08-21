@@ -1,6 +1,6 @@
 from django.urls import path
-#from candidaturas.views.views_candidatura import candidatar
+from candidaturas.views.views_candidatura import CandidaturaDetailView
 
 urlpatterns = [
-    #path('', candidatar, name='candidatar'),
+    path('minhas-candidaturas/', CandidaturaDetailView.as_view(), name='CandidaturaDetailView'),
 ]

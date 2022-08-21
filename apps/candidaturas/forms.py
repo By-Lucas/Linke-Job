@@ -12,4 +12,4 @@ class CandidaturaForm(forms.ModelForm):
     
     class Meta:
         model = Candidatura
-        fields = ['candidato', 'vaga', 'requisitos', 'requisitos_adicionais','escolaridade']
+        fields = ['candidato', 'vaga', 'requisitos' ] #'requisitos_adicionais', 'escolaridade'
