@@ -26,7 +26,26 @@
     </div>
   </div>
   <!-- Header End -->
-  
+
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+        </button>
+       </div>
+      <div class="modal-body">
+        hi
+      </div>
+    </div>
+  </div>
+</div>
+
   {% include 'msg_alerts/message-alert.html' %}
 
   <!-- Diversidades Start -->
@@ -56,5 +75,19 @@
   <!-- Blog Start -->
   {% include 'index_/blog-start.html' %}
   <!-- Blog End -->
+
+{% if messages %}
+<script>
+  $(document).ready(function(){
+      $('#openModalBtn').bind(()=>{
+          $('#exampleModal').modal('show');
+          setTimeout(() => {
+              $('#exampleModal').modal('hide');
+          },3000);
+      });
+  });
+</script>
+{% endif %}
+
 
 {% endblock body %}
