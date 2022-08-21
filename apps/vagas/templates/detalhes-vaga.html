@@ -73,9 +73,28 @@
     </div>
     <div class="container col-md-8">
         <div class="text-center pb-2" >
-            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <i class="fa fa-plus" aria-hidden="true"></i> Me candidatar
-            </button>
+            {% if request.user.is_authenticated %}
+                {% if vagas.status == True %}
+                    {% if not candidatura_ativa %}
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Me candidatar
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
+                            <i class="fa fa-plus" aria-hidden="true"></i> Candidatura enviada
+                        </button>
+                    {% endif %}
+                    
+                {% else %}
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled >
+                        - Cadidaturas encerrada
+                    </button>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-outline-success">
+                    <i class="fa fa-login" aria-hidden="true"></i> Faça o login para se candidatar
+                </a>
+            {% endif %}
             <a href="{% url 'todas_vagas' %}" class="btn btn-outline-primary">
                 <i class="fa fa-reply" aria-hidden="true"></i>
                 Voltar as vagas

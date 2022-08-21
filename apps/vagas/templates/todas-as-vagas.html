@@ -6,7 +6,6 @@
 
 {% block body %} 
 
-<!-- Header Start -->
 <div class="container-fluid bg-primary mb-5">
   <div
     class="d-flex flex-column align-items-center justify-content-center"
@@ -28,12 +27,10 @@
       </button>
     </form>
     <!-- End Form searc -->
-    
   </div>
 </div>
-<!-- Header End -->
 
-<!-- Block Start -->
+
 <div class="container-fluid pt-5">
   {% include 'msg_alerts/message-alert.html' %}
   <div class="container">
@@ -48,7 +45,11 @@
         {% for vagas in vagas %}
         <div class="col-lg-3 mb-3">
           <div class="card border-0 shadow-sm mb-2">
-            <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
+            {% if vagas.empresa.foto %}
+              <img class="card-img-top mb-1" src="{{vagas.empresa.foto.url}}" alt="" />
+            {% else %}
+              <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
+            {%endif %}
             <div class="card-body bg-light text-center p-4">
               
               <input type="hidden" name='vaga_nome' value="{{ vagas }}">
@@ -69,7 +70,7 @@
                     <i class="fa fa-circle-check text-success"></i>
                     Ativo
                   {% else %}
-                  <i class="fa-solid fa-ban text-danger"></i>
+                    <i class="fa-solid fa-ban text-danger"></i>
                     Inativo
                   {% endif %}
                 </small>
@@ -95,6 +96,5 @@
     {% endif %}
   </div>
 </div>
-<!-- Blog End -->
 
     {% endblock body %}

@@ -7,9 +7,21 @@
             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">X</button>
           </div>
           <div class="modal-body">
-            <input type="text" name="nome" value="{{vagas.nome}}">
-            <input type="text" name="id" value="{{vagas.id}}">
-            <input type="hidden" name='vaga_id' value="{{ vagas.id }}">
+            <div class=" justify-content-center">
+              <div class="list-group ">
+                <input type="text" name="vaga_id" value="{{vagas.id}}">
+                <div class="col-sm d-inline-flex mb-3">
+                  <input class="form-control col-lg-6 mr-2" type="text" name="usuario" value="{{request.user}}">
+                  <input class="form-control col-lg-6 mr-2" type="text" name="nome" value="{{vagas.nome}}">
+                </div>
+                <div class="col-sm d-inline-flex mb-3">
+                  <input type="hidden" name="vaga_id" value="{{vagas.id}}">
+                  <input class="form-control col-lg-6 mr-2" type="text" name="requisitos_adicionais" placeholder="Requisitos adicionais" value="{{request.user}}">
+                  <input class="form-control col-lg-6 mr-2" type="text" name="escolaridade" placeholder="Escolaridade" value="{{vagas.nome}}">
+                </div>
+              </div>
+              
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-outline-success">Me candidatar</button>

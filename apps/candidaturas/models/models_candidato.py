@@ -13,9 +13,9 @@ class CandidaturaManager(models.Manager):
     def new_or_get(self, request):
         cand_id = request.session.get('candidatura_id', None)
         print('KKKKKKKK', cand_id)
-        id_vaga = request.POST.get('id')
+        id_vaga = request.POST.get('vaga_id')
         qs = self.get_queryset().filter(id=cand_id)
-        
+        print('qs',qs)
         if qs.count() == 1:
             nomes =[]
             n = 0
@@ -25,11 +25,8 @@ class CandidaturaManager(models.Manager):
                     n+=1
                     quantidade=nomes.count(quantidade.vaga.nome)
                 
-            #print(type(nomes[0]), type(int(id_vaga)), 'agora foi atualizado')
             
-            new_obj = n
-            # cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
-            # print(nomes[0], 'agora foi criado')
+            #new_obj = n
             if QtdCandidatura.objects.exists():
                 cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
                 #print(nomes[0], id_vaga, 'agora foi atualizado')
@@ -39,12 +36,13 @@ class CandidaturaManager(models.Manager):
             else:
                 cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
                 #print(nomes[0], id_vaga, 'agora foi criado')
-        else:
-            print('KKK agora foi criado')
-            
-            cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=1)
-            new_obj = n
-            request.session['qtd_candidatura'] = n
+            # else:
+            #     print('KKK agora foi criado')
+                
+            #     cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=1)
+        cart_obj = cand_id
+        new_obj = cart_obj
+            #request.session['qtd_candidatura'] = new_obj
         return cart_obj, new_obj
     
     def get(self, request):
@@ -87,8 +85,8 @@ class Candidatura(models.Model):
     candidato = models.ForeignKey(User, on_delete=models.CASCADE)
     vaga = models.ForeignKey(Vagas, on_delete=models.CASCADE)
     requisitos = models.TextField(max_length=2000, null=True, blank=True)
-    requisitos_adicionais = models.ManyToManyField(RequisitosCandidatura, null=True, blank=True)
-    escolaridade = models.ForeignKey(EscolaridadeCandidatura, on_delete=models.CASCADE, null=True, blank=True)
+    #requisitos_adicionais = models.ManyToManyField(RequisitosCandidatura, null=True, blank=True)
+    #escolaridade = models.ForeignKey(EscolaridadeCandidatura, on_delete=models.CASCADE, null=True, blank=True)
     escolhido = models.BooleanField(default=False)
     atualizado_em = models.DateTimeField(default=timezone.now)
     data_cadastro = models.DateTimeField(auto_now = True)

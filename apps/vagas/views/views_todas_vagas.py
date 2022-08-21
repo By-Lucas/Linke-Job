@@ -50,13 +50,11 @@ class VagasList(ListView):
         except InvalidPage:
             vagas_pages = paginator.page(1)
 
-
         context = {
             'vagas': vagas,
             'vagas_pages': vagas_pages,
         }
         return context
-
 
 
 class VagaDetailView(DetailView):
@@ -68,37 +66,61 @@ class VagaDetailView(DetailView):
         idds = self.kwargs.get('pk')
         nomes =[]
         qtd_candidatura = 0
+        candidatura_ativa = False
         for id_v in Vagas.objects.all():
             for quantidade in id_v.candidatura_set.filter(vaga=idds):
                 qtd_candidatura+=1
+                if quantidade.candidato == self.request.user and id_v == quantidade.vaga:
+                    candidatura_ativa = True
+        context['candidatura_ativa'] = candidatura_ativa
         context['quantidade'] = qtd_candidatura
         return context
 
 
 def pegar_dados(request, id):
     vagas = Vagas.objects.all()
-    candidatura = Candidatura.objects.all()
+    
     cart_obj, new_obj = Candidatura.objects.new_or_get(request)
     print('new_obj', new_obj)
     
     qtd_candidatos = QtdCandidatura.objects.all()
-    date_insert  = request.POST.get('nome')
-    vaga_id =  request.POST.get('id')
-    lista = []
+    id_vaga =  request.POST.get('vaga_id')
+    candidato = request.user
+    nome  = request.POST.get('nome')
+    requisitos_adicionais  = request.POST.get('requisitos_adicionais')
+    requisitos= request.user.profileuser.sobre
+    escolaridade  = request.POST.get('escolaridade')
+    nomes = []
     n=0
-    for vaga_ids in vagas:
-        ids_ = vaga_ids
-        for cand in vaga_ids.candidatura_set.filter(vaga=ids_):
-                n+=1
-                lista.append(cand.vaga.nome)
-        # if QtdCandidatura.objects.exists():
-        #         qd_candidatos = QtdCandidatura.objects.update(vaga_candidatada=vaga_id, quantidade_candidatos=n)
-        # else:
-        #     qd_candidatos = QtdCandidatura.objects.create(vaga_candidatada=vaga_id, quantidade_candidatos=n)
+    print()
+    for id_v in Vagas.objects.all():
+        for quantidade in id_v.candidatura_set.filter(vaga=id_vaga):
+            nomes.append(quantidade.vaga.nome)
+            n+=1
+            quantidade=nomes.count(quantidade.vaga.nome)
+            
+    if request.method == 'POST':
+        if not candidato in Candidatura.objects.all():
+            candidatura = Candidatura.objects.create(
+                        candidato=candidato,
+                        vaga_id=id_vaga,
+                        requisitos=requisitos,
+                        #requisitos_adicionais=requisitos_adicionais,
+            )
+            print('Candidatura criada')
         
+        if QtdCandidatura.objects.exists():
+            cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
+            #print(nomes[0], id_vaga, 'agora foi atualizado')
+        elif QtdCandidatura.objects.exists() and nomes[0] == int(id_vaga):
+            cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
+            #print(nomes[0],id_vaga, 'agora foi atualizado')
+        else:
+            cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
+            
     quantidade = n
-    print(n)
-    print(lista)
+    print('id_vaga', id_vaga)
+    print(nomes)
     
 
     return HttpResponse('ok')
