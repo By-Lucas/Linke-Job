@@ -10,7 +10,7 @@ from django.contrib.messages import constants
 from candidaturas.models.models_candidato import Candidatura
 from candidaturas.forms import CandidaturaForm
 
-#Class Based View
+
 class CandidaturaDetailView(ListView):
     model = Candidatura
     template_name = "admin-templates/minhas-candidaturas.html"

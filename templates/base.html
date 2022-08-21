@@ -59,7 +59,6 @@
                     <div class="navbar-nav font-weight-bold mx-auto py-0">
                         <a href="{% url 'index' %}" class="nav-item nav-link active">Home</a>
                         <a href="{% url 'todas_vagas' %}" class="nav-item nav-link">Vagas</a>
-                        <a href="class.html" class="nav-item nav-link">Sobre</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                 Cursos
@@ -76,8 +75,19 @@
                             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'empresa' %}
                                 <a href="{% url 'admin' %}" class="nav-item nav-link">Administração</a>
                             {% endif %}
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    {{request.user}} <li class="fa fa-user"></li> 
+                                </a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="#" class="dropdown-item">Perfil</a>
+                                    <a href="{% url 'CandidaturaDetailView' %}" class="dropdown-item">Minhas candidaturas</a>
+                                    <a href="#" class="dropdown-item">Meu cursos</a>
+                                    <a href="#" class="dropdown-item">Opções</a>
+                                </div>
+                            </div>
                         {% endif %}
-                        <a href="contact.html" class="nav-item nav-link">Contato</a>
+                        <a href="#" class="nav-item nav-link">Contato</a>
                     </div>
                     <a href="{% url 'register' %}" class="btn btn-primary px-3 mr-2">
                         Cadastre-se

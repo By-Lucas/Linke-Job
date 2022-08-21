@@ -29,10 +29,10 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
                         </a>
                         <a href="{% url 'UpdateVaga' vagas.pk %}" class="btn btn-outline-primary mr-2">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Editar
+                            <i class="fa fa-edit" aria-hidden="true"></i> Editar
                         </a>
                         <button type="button" class="btn btn-outline-danger mr-2" data-bs-toggle="modal" data-bs-target="#deletar">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Deletar
+                            <i class="fa fa-trash" aria-hidden="true"></i> Deletar
                         </button>
                     </div>
                 </div>
@@ -80,13 +80,12 @@
                             <i class="fa fa-plus" aria-hidden="true"></i> Me candidatar
                         </button>
                     {% else %}
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
-                            <i class="fa fa-plus" aria-hidden="true"></i> Candidatura enviada
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
+                            <i class="fa fa-check-square" aria-hidden="true"></i> Candidatura enviada
                         </button>
                     {% endif %}
-                    
                 {% else %}
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled >
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled >
                         - Cadidaturas encerrada
                     </button>
                 {% endif %}

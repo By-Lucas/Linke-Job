@@ -30,7 +30,7 @@
                 {% if request.user.first_name %}
                     {{ request.user.first_name }} {{ request.user.last_name }},
                 {% else %}
-                {{ request.user.username }},
+                    {{ request.user.username }},
                 {% endif %}
             </strong>
             o que deseja fazer?
@@ -74,18 +74,6 @@
             </div>
         </div>
 
-
-        <div class="col-lg-3 mb-3">
-            <div class="card border-0 shadow-sm mb-2">
-                <img class="card-img-top mb-1" style="max-height: 250px;" src="https://cdn-icons-png.flaticon.com/512/1632/1632602.png" alt="" />
-                <div class="card-body bg-light text-center p-4">
-                    <h5 class="">Minhas candidaturas</h5>
-                    <a href="{% url 'CandidaturaDetailView' %}" class="btn btn-primary px-4 mx-auto my-2">Minhas candidaturas</a>
-                </div>
-            </div>
-        </div>
-
-        
         <div class="col-md-12 mb-4">
             {% with vagas_pages as paginated %}
                 {% include "paginacao/paginacao.html" %}

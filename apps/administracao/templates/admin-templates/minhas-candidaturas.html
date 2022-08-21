@@ -2,11 +2,50 @@
 
 {% block title %}- Minhas candidaturas {% endblock title %}
 
+{% load static %}
+
 {% block body %}
-<div class="container">
-    <h1>Minhas candidaturas</h1>
-    {% for candidaturas in object_list %}
-        {{candidaturas}}
-    {% endfor %}
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-2">
+    <div
+      class="d-flex flex-column align-items-center justify-content-center"
+      style="min-height: 200px"
+    >
+      <h3 class="display-4 font-weight-bold text-white">Administração </h3>
+      <div class="d-inline-flex text-white">
+        <p class="m-0"><a class="text-white" href="#" style="font-size: 30px">
+            {% if request.user.first_name %}
+                {{ request.user.first_name }} {{ request.user.last_name }},
+            {% else %}
+                {{ request.user.username }}
+            {% endif %}
+        </a></p>
+      </div>
+    </div>
+  </div>
+  <!-- Header End -->
+
+<!-- Block Start -->
+<div class="container-fluid pt-5">
+    <div class="container">
+        <div class="row pb-3">
+            {% for candidaturas in object_list %}
+                <div class="col-lg-3 mb-3">
+                    <div class="card border-0 shadow-sm mb-3">
+                        {% if candidaturas.vaga.empresa.foto %}
+                        <img class="card-img-top mb-1" style="max-height: 200px;" src="{{ candidaturas.vaga.empresa.foto.url }}" alt="" />
+                        {% else %}
+                        <img class="card-img-top mb-1" style="max-height: 200px;" src="{% static 'img/home/header.png' %}" alt="" />
+                        {% endif %}
+                        <div class="card-body bg-light text-center p-4">
+                            <h5 class="">{{candidaturas.vaga}}</h5>
+                            <p>{{candidaturas.vaga.empresa}}</p>
+                            <a href="{% url 'VagaDetailView' candidaturas.vaga.id %}" class="btn btn-success px-4 mx-auto my-1">Detalhes da vaga</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock body %}
