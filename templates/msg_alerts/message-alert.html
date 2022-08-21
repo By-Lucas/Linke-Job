@@ -2,18 +2,14 @@
 
 <div style="align-items: center; display:flex; justify-content: center;">
     {% if messages %}
-    <div class="row">
-        <div class="col-lg-12 col-md-10 col-sm-12 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} w-100 rounded-0 mb-2 redirect-msg" id="myAlert">
-                    <div class="d-flex w-100">
-                        <div class="col-auto flex-shrink-1 flex-grow-1">{{ message|safe }}</div>
-                        <div class="col-auto text-center">
-                            <button type="button" class="close" data-dismiss="alert" onclick="$(this).closest('.alert').remove()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
+                <div class="alert {{message.tags}} alert-dismissible fade show"  id="myAlert">
+                    {{ message|safe }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="$(this).closest('.alert').remove()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
                 </div>
                 {% if message.extra_tags != 'stay' %}
                 <script>
@@ -22,11 +18,9 @@
                             $(this).remove(); 
                         });
                     }, 4000);
-                    
                 </script>
                 {% endif %}
             {% endfor %}
-        </div>
     </div>
 {% endif %}
 </div>

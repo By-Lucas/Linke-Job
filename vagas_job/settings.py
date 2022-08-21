@@ -1,3 +1,4 @@
+from django.contrib.messages import constants
 from pathlib import Path
 import os, sys
 
@@ -130,6 +131,15 @@ STATICFILES_DIRS = [
 # Arquivsos de media 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
+
+
+MESSAGE_TAGS = {
+constants.DEBUG: 'alert-primary',
+constants.ERROR: 'alert-danger',
+constants.SUCCESS: 'alert-success',
+constants.INFO: 'alert-info',
+constants.WARNING: 'alert-warning',
+}
 
 
 # Default primary key field type
