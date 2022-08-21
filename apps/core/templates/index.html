@@ -78,14 +78,15 @@
 
 {% if messages %}
 <script>
-  $(document).ready(function(){
-      $('#openModalBtn').bind(()=>{
-          $('#exampleModal').modal('show');
-          setTimeout(() => {
-              $('#exampleModal').modal('hide');
-          },3000);
-      });
+
+$(document).ready(function() {
+  $("#exampleModal").hide();
+  $("#exampleModal").click(function showAlert() {
+    $("#exampleModal").fadeTo(2000, 500).slideUp(500, function() {
+      $("#exampleModal").slideUp(500);
+    });
   });
+});
 </script>
 {% endif %}
 
