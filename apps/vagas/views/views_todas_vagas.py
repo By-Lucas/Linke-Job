@@ -81,7 +81,6 @@ def pegar_dados(request, id):
     vagas = Vagas.objects.all()
     
     cart_obj, new_obj = Candidatura.objects.new_or_get(request)
-    print('new_obj', new_obj)
     
     qtd_candidatos = QtdCandidatura.objects.all()
     id_vaga =  request.POST.get('vaga_id')
@@ -92,7 +91,6 @@ def pegar_dados(request, id):
     escolaridade  = request.POST.get('escolaridade')
     nomes = []
     n=0
-    print()
     for id_v in Vagas.objects.all():
         for quantidade in id_v.candidatura_set.filter(vaga=id_vaga):
             nomes.append(quantidade.vaga.nome)
@@ -105,22 +103,13 @@ def pegar_dados(request, id):
                         candidato=candidato,
                         vaga_id=id_vaga,
                         requisitos=requisitos,
-                        #requisitos_adicionais=requisitos_adicionais,
             )
-            print('Candidatura criada')
         
         if QtdCandidatura.objects.exists():
             cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
-            #print(nomes[0], id_vaga, 'agora foi atualizado')
         elif QtdCandidatura.objects.exists() and nomes[0] == int(id_vaga):
             cart_obj = QtdCandidatura.objects.update(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
-            #print(nomes[0],id_vaga, 'agora foi atualizado')
         else:
             cart_obj = QtdCandidatura.objects.create(vaga_candidatada_id=id_vaga, quantidade_candidatos=n)
             
-    quantidade = n
-    print('id_vaga', id_vaga)
-    print(nomes)
-    
-
-    return HttpResponse('ok')
+    return redirect('CandidaturaDetailView')

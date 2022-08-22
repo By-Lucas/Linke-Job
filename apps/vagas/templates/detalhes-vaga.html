@@ -22,6 +22,8 @@
 <!-- Block Start -->
 <div class="container-fluid ">
     <div class="container col-md-7">
+        <!--SE DEJESAR EDITAR VAGA DIRETAMETNE NESTE TEMPLATE , DESCOMENTE-->
+        <!--
         {% if request.user.is_authenticated %}
             {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'empresa' %}
                 <div class="d-flex flex-column align-items-center justify-content-center mb-4">
@@ -38,7 +40,7 @@
                     </div>
                 </div>
             {% endif %}
-        {% endif %}
+        {% endif %}-->
         <div class="row pb-3">
             <div class="col-lg-6">
                 <input type="hidden" name='vaga_id' value="{{ vagas.id }}">

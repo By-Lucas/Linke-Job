@@ -12,11 +12,11 @@
       class="d-flex flex-column align-items-center justify-content-center"
       style="min-height: 200px"
     >
-      <h3 class="display-4 font-weight-bold text-white">Administração </h3>
+      <h3 class="display-4 font-weight-bold text-white">Minhas candidaturas </h3>
       <div class="d-inline-flex text-white">
         <p class="m-0"><a class="text-white" href="#" style="font-size: 30px">
             {% if request.user.first_name %}
-                {{ request.user.first_name }} {{ request.user.last_name }},
+                {{ request.user.first_name }} {{ request.user.last_name }}
             {% else %}
                 {{ request.user.username }}
             {% endif %}
