@@ -44,7 +44,11 @@ INSTALLED_APPS += [
 
     'widget_tweaks',
     'bootstrapform',
+    'bootstrap4',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

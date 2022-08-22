@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load bootstrap %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+
+{% load static %}
+
+{% block body %}
+<div class="container">
+        <div class="card-body">
+            <form role="form" method="POST" class="text-start" enctype="multipart/form-data" id="employee-form">
+            {% csrf_token %}
+            <h1 class="mb-4">Editar perfil: {{user.first_name}} {{user.last_name}}</h1>
+            <div class="input-group input-group-outline my-3">
+                <div class="form-group col-md-2 me-3">
+                    {{user_form.first_name|bootstrap }}
+                </div>
+                <div class="form-group col-md-3 me-3">
+                    {{user_form.last_name|bootstrap  }}
+                </div>
+                <div class="col-md-6">
+                    {{user_form.email|bootstrap  }}
+                </div>
+            </div>
+            <div class="input-group input-group-outline my-3">
+                <div class="form-group col-md-3 me-2">
+                    {{profile_form.cpf|bootstrap  }}
+                </div>
+                <div class="form-group col-md-3 me-2">
+                    {{profile_form.cnpj|bootstrap  }}
+                </div>
+                <div class="form-group col-md-3 me-2">
+                    {{profile_form.contato|bootstrap }}
+                </div>
+                
+                <div class="form-group col-md-2">
+                    {{profile_form.idade|bootstrap }}
+                </div>
+            </div>
+            <div class="input-group input-group-outline my-3">
+                <div class="form-group col-md-2 me-3">
+                    {{profile_form.cidade|bootstrap }}
+                </div>
+                <div class="form-group col-md-6 me-3">
+                    {{profile_form.endereco|bootstrap }}
+                </div>
+                <div class="col-md-3">
+                    {{profile_form.numero_casa|bootstrap}}
+                </div>
+            </div>
+            <div class="input-group input-group-outline my-3">
+                
+                <div class="form-group col-md-4 me-3">
+                    {{profile_form.github_user|bootstrap }}
+                </div>
+                <div class="form-group col-md-4 me-3">
+                    {{profile_form.instagram_user|bootstrap }}
+                </div>
+                <div class="form-group col-md-3">
+                    {{profile_form.linkedin_user|bootstrap }}
+                </div>
+            </div>
+            <div class="input-group input-group-outline my-3">
+                <div class="form-group col-md-3 me-3">
+                    {{user_form.username|bootstrap }}
+                </div>
+                <div class="form-group col-md-3 me-2  ">
+                    {{profile_form.escolaridade_user|bootstrap }}
+                    <!--<label for="data_nascimento">Data de nascimento</label>
+                    <input class="form-control" value="data_nascimento" type="date" id="data_nascimento" name="data_nascimento">-->
+                </div>
+            </div>
+            <div class="input-group input-group-outline my-3">
+                <div class="form-group col-md me-3">
+                    {{profile_form.sobre|bootstrap }}
+                </div>
+            </div>
+            <div class="input-group input-group-outline my-3">
+                <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+                    <div class="mb">
+                    <label for="imagem_perfil" class="form-label">Perfil</label>
+                    <input class="form-control" type="file" name="imagem_perfil" id="imagem_perfil" accept="image/*">
+                    <!--{{profile_form.imagem_perfil }}-->
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                    <div class="mb-3">
+                        <img src="{% if user.profileuser.imagem_perfil %}{{user.profileuser.imagem_perfil.url}}{% else %}{% static 'base/img/tesla-model-s.png' %}{% endif %}" alt="" class="img-thumbnail" id="cimg">
+                    </div>
+                </div>
+            </div>
+
+            <!--{{config_form }}-->
+            
+            <div class="form-check form-switch d-flex align-items-center mb-3">
+                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <label class="form-check-label mb-0 ms-2" for="rememberMe">Salvar?</label>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100 my-4 mb-2">Salvar alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- RENDERIZAR IMAGEM SELECIONADA -->
+<script>
+    let photo = document.getElementById('cimg');
+    let file = document.getElementById('imagem_perfil');
+
+    photo.addEventListener('click', () => {
+        file.click();
+    });
+
+    file.addEventListener('change', () => {
+
+        if (file.files.length <= 0) {
+            return;
+        }
+
+        let reader = new FileReader();
+
+        reader.onload = () => {
+            photo.src = reader.result;
+        }
+
+        reader.readAsDataURL(file.files[0]);
+    });
+</script>
+{% endblock body %}

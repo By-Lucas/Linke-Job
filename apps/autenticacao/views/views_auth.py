@@ -13,15 +13,13 @@ class LoginView(SuccessMessageMixin, auth_views.LoginView):
     def form_valid(self, form):
         if self.request.user.is_authenticated:
             messages.error(self.request, f"""O usuário 
-                        {self.request.user.first_name} 
-                        {self.request.user.last_name}
+                        {self.request.user} 
                         já está logado """)
             return redirect(reverse_lazy("index"))
         else:
             login(self.request, form.get_user())
             messages.success(self.request, f"""Seja bem vindo(a) 
-                            {self.request.user.first_name} 
-                            {self.request.user.last_name}
+                            {self.request.user} 
                             """)
             return redirect(reverse_lazy("index"))
 

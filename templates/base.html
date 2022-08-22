@@ -35,7 +35,6 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 
         <title>Linke Job {% block title %}{% endblock %}</title>
-
     </head>
     <body>
             <!-- Navbar Start -->
@@ -80,7 +79,7 @@
                                     {{request.user}} <li class="fa fa-user"></li> 
                                 </a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="#" class="dropdown-item">Perfil</a>
+                                    <a href="{% url 'profile' %}" class="dropdown-item">Perfil</a>
                                     <a href="{% url 'CandidaturaDetailView' %}" class="dropdown-item">Minhas candidaturas</a>
                                     <a href="#" class="dropdown-item">Meu cursos</a>
                                     <a href="#" class="dropdown-item">Opções</a>
@@ -108,6 +107,7 @@
             </nav>
         </div>
         <!-- Navbar End -->
+        
 
         {% block body %}{% endblock body %}
 

@@ -80,6 +80,7 @@ class ProfileUserForm(forms.ModelForm):
             'cidade',
             'endereco',
             'numero_casa',
+            'escolaridade_user',
             'contato',
             'cpf',
             'cnpj',

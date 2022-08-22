@@ -1,26 +1,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<div style="align-items: center; display:flex; justify-content: center;">
-    {% if messages %}
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            {% for message in messages %}
-                <div class="alert {{message.tags}} alert-dismissible fade show"  id="myAlert">
-                    {{ message|safe }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="$(this).closest('.alert').remove()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                </div>
-                {% if message.extra_tags != 'stay' %}
-                <script>
-                    window.setTimeout(function() {
-                        $(".alert").fadeTo(500, 0).slideUp(500, function(){
-                            $(this).remove(); 
-                        });
-                    }, 4000);
-                </script>
-                {% endif %}
-            {% endfor %}
-    </div>
-{% endif %}
+{% if messages %}
+<script>
+    window.setTimeout(function() {
+        $('#element').toast('show');
+    }, 0200);
+</script>
+<div aria-live="polite" aria-atomic="true" style="position: relative; ">
+  <div class="toast alert {{message.tags}} alert-dismissible fade show"  id="myAlert" style="position: absolute; top: 0; right: 0;">
+    {% for message in messages %}
+      <div class="toast-header ">
+        <i class="flaticon-036-boy text-primary"></i> 
+        <strong class="mr-auto"> {{message}} </strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="$(this).closest('.alert').remove()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% if message.extra_tags != 'stay' %}
+        <script>
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove(); 
+                });
+            }, 4000);
+        </script>
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>
+{% endif %}

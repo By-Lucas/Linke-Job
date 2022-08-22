@@ -48,7 +48,7 @@ class ProfileUpdateView(TemplateView):
             'user_form': user_form,
             'profile_form': profile_form,
         }
-        return render(request, self.template_name, context)
+        return render(request, 'profile/edit-profile.html', context)
 
     def post(self, request):
         user = request.user

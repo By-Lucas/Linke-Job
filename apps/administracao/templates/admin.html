@@ -8,6 +8,7 @@
 
 <!-- Header Start -->
 <div class="container-fluid bg-primary mb-2">
+    {% include 'msg_alerts/message-alert.html' %}
   <div
     class="d-flex flex-column align-items-center justify-content-center"
     style="min-height: 200px"
@@ -22,7 +23,6 @@
 
 <!-- Block Start -->
 <div class="container-fluid pt-5">
-  {% include 'msg_alerts/message-alert.html' %}
   <div class="container">
     <div class="text-center pb-2">
         <h1 class="mb-4">Olá 
@@ -60,7 +60,7 @@
                 <img class="card-img-top mb-1" style="max-height: 250px;" src="https://icons.iconarchive.com/icons/custom-icon-design/flatastic-10/256/Edit-validated-icon.png" alt="" />
                 <div class="card-body bg-light text-center p-4">
                     <h5 class="">Editar vagas</h5>
-                    <a href="" class="btn btn-warning px-4 mx-auto my-2">Editar vagas</a>
+                    <a href="{% url 'ListVagasOn' %}" class="btn btn-warning px-4 mx-auto my-2">Editar vagas</a>
                 </div>
             </div>
         </div>
