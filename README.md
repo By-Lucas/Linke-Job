@@ -12,6 +12,8 @@ As empresas podem publicar suas vagas para o que desejar e colocar os requisitos
 
 As vagas possuem informações importantes, como a quantidade de candidatos em cada uma delas.
 
+<img src='image.png'>
+
 #
 
 **INSTALE AS DEPENDENCIAS**
