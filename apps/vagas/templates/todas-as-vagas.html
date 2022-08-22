@@ -6,220 +6,96 @@
 
 {% block body %} 
 
-<!-- Header Start -->
 <div class="container-fluid bg-primary mb-5">
+  {% include 'msg_alerts/message-alert.html' %}
   <div
     class="d-flex flex-column align-items-center justify-content-center"
     style="min-height: 400px"
   >
-    <h3 class="display-3 font-weight-bold text-white">Todas as vagas</h3>
+    <h3 class="display-3 font-weight-bold text-white">Escolha sua vaga</h3>
     <div class="d-inline-flex text-white">
       <p class="m-0"><a class="text-white" href="{% url 'index' %}">Home</a></p>
       <p class="m-0 px-2">/</p>
       <p class="m-0"><a class="text-white" href="">Contato</a></p>
     </div>
+
+    <!-- Form searc -->
+    <form action="" method="get" class="input-group mb-3 col-md-4">
+      {% csrf_token %}
+      <input type="search" name="q" value="{{ request.GET.q }}" class="form-control"  placeholder="Buscar por nome, empresa, senioridade, código..." style="border-radius: 5px 0px 0px 5px;">
+      <button class="btn btn-outline-secondary text-white" type="submit" style="border-radius: 0px 5px 5px 0px;">
+        <i class="fas fa-search"></i> Buscar 
+      </button>
+    </form>
+    <!-- End Form searc -->
   </div>
 </div>
-<!-- Header End -->
 
-<!-- Blog Start -->
+
 <div class="container-fluid pt-5">
+  {% include 'msg_alerts/message-alert.html' %}
   <div class="container">
+    {% if vagas %}
     <div class="text-center pb-2">
       <p class="section-title px-5">
-        <span class="px-2">Latest Blog</span>
+        <span class="px-2">Busca por: Todas as vagas </span>
       </p>
-      <h1 class="mb-4">Latest Articles From Blog</h1>
+      <h1 class="mb-4">Agora é sua escolha</h1>
     </div>
     <div class="row pb-3">
-      <div class="col-lg-4 mb-4">
-        <div class="card border-0 shadow-sm mb-2">
-          <img class="card-img-top mb-2" src="img/blog-1.jpg" alt="" />
-          <div class="card-body bg-light text-center p-4">
-            <h4 class="">Diam amet eos at no eos</h4>
-            <div class="d-flex justify-content-center mb-3">
-              <small class="mr-3"
-                ><i class="fa fa-user text-primary"></i> Admin</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-folder text-primary"></i> Web Design</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-comments text-primary"></i> 15</small
-              >
+        {% for vagas in vagas %}
+        <div class="col-lg-3 mb-3">
+          <div class="card border-0 shadow-sm mb-2">
+            {% if vagas.empresa.foto %}
+              <img class="card-img-top mb-1" src="{{vagas.empresa.foto.url}}" alt="" />
+            {% else %}
+              <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
+            {%endif %}
+            <div class="card-body bg-light text-center p-4">
+              
+              <input type="hidden" name='vaga_nome' value="{{ vagas }}">
+              <input type="hidden" name='vaga_id' value="{{ vagas.id }}">
+
+              <h5 class="">{{ vagas.nome }}</h5>
+              <div class="d-flex justify-content-center mb-3">
+                <small class="mr-3">
+                  <i class="fa fa-user text-primary"></i>
+                  {{vagas.get_senioridade}}
+                </small>
+                <small class="mr-3">
+                  <i class="fa fa-home text-primary px-4"></i>
+                  {{ vagas.get_vaga_tipo }}
+                  </small>
+                <small class="mr-3">
+                  {% if vagas.status == True %}
+                    <i class="fa fa-circle-check text-success"></i>
+                    Ativo
+                  {% else %}
+                    <i class="fa-solid fa-ban text-danger"></i>
+                    Inativo
+                  {% endif %}
+                </small>
+              </div>
+              <p>
+                {{ vagas.empresa }}
+              </p>
+              <a href="{% url 'VagaDetailView' vagas.id %}" class="btn btn-primary px-4 mx-auto my-2">Ver vaga</a>
             </div>
-            <p>
-              Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam
-              eirmod, duo et sed sit eirmod kasd clita tempor dolor stet
-              lorem. Tempor ipsum justo amet stet...
-            </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2"
-              >Read More</a
-            >
           </div>
         </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card border-0 shadow-sm mb-2">
-          <img class="card-img-top mb-2" src="img/blog-2.jpg" alt="" />
-          <div class="card-body bg-light text-center p-4">
-            <h4 class="">Diam amet eos at no eos</h4>
-            <div class="d-flex justify-content-center mb-3">
-              <small class="mr-3"
-                ><i class="fa fa-user text-primary"></i> Admin</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-folder text-primary"></i> Web Design</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-comments text-primary"></i> 15</small
-              >
-            </div>
-            <p>
-              Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam
-              eirmod, duo et sed sit eirmod kasd clita tempor dolor stet
-              lorem. Tempor ipsum justo amet stet...
-            </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2"
-              >Read More</a
-            >
-          </div>
+        {% endfor %}
+        <div class="col-md-12 mb-4">
+          {% with vagas_pages as paginated %}
+            {% include "paginacao/paginacao.html" %}
+          {% endwith %}
         </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card border-0 shadow-sm mb-2">
-          <img class="card-img-top mb-2" src="img/blog-3.jpg" alt="" />
-          <div class="card-body bg-light text-center p-4">
-            <h4 class="">Diam amet eos at no eos</h4>
-            <div class="d-flex justify-content-center mb-3">
-              <small class="mr-3"
-                ><i class="fa fa-user text-primary"></i> Admin</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-folder text-primary"></i> Web Design</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-comments text-primary"></i> 15</small
-              >
-            </div>
-            <p>
-              Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam
-              eirmod, duo et sed sit eirmod kasd clita tempor dolor stet
-              lorem. Tempor ipsum justo amet stet...
-            </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2"
-              >Read More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card border-0 shadow-sm mb-2">
-          <img class="card-img-top mb-2" src="img/blog-1.jpg" alt="" />
-          <div class="card-body bg-light text-center p-4">
-            <h4 class="">Diam amet eos at no eos</h4>
-            <div class="d-flex justify-content-center mb-3">
-              <small class="mr-3"
-                ><i class="fa fa-user text-primary"></i> Admin</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-folder text-primary"></i> Web Design</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-comments text-primary"></i> 15</small
-              >
-            </div>
-            <p>
-              Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam
-              eirmod, duo et sed sit eirmod kasd clita tempor dolor stet
-              lorem. Tempor ipsum justo amet stet...
-            </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2"
-              >Read More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card border-0 shadow-sm mb-2">
-          <img class="card-img-top mb-2" src="img/blog-2.jpg" alt="" />
-          <div class="card-body bg-light text-center p-4">
-            <h4 class="">Diam amet eos at no eos</h4>
-            <div class="d-flex justify-content-center mb-3">
-              <small class="mr-3"
-                ><i class="fa fa-user text-primary"></i> Admin</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-folder text-primary"></i> Web Design</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-comments text-primary"></i> 15</small
-              >
-            </div>
-            <p>
-              Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam
-              eirmod, duo et sed sit eirmod kasd clita tempor dolor stet
-              lorem. Tempor ipsum justo amet stet...
-            </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2"
-              >Read More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 mb-4">
-        <div class="card border-0 shadow-sm mb-2">
-          <img class="card-img-top mb-2" src="img/blog-3.jpg" alt="" />
-          <div class="card-body bg-light text-center p-4">
-            <h4 class="">Diam amet eos at no eos</h4>
-            <div class="d-flex justify-content-center mb-3">
-              <small class="mr-3"
-                ><i class="fa fa-user text-primary"></i> Admin</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-folder text-primary"></i> Web Design</small
-              >
-              <small class="mr-3"
-                ><i class="fa fa-comments text-primary"></i> 15</small
-              >
-            </div>
-            <p>
-              Sed kasd sea sed at elitr sed ipsum justo, sit nonumy diam
-              eirmod, duo et sed sit eirmod kasd clita tempor dolor stet
-              lorem. Tempor ipsum justo amet stet...
-            </p>
-            <a href="" class="btn btn-primary px-4 mx-auto my-2"
-              >Read More</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-12 mb-4">
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center mb-0">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
     </div>
+    {% else %}
+      <div class="text-center pb-2">
+        <h1 class="mb-4">nenhuma vaga disponivel</h1>
+      </div>
+    {% endif %}
   </div>
 </div>
-<!-- Blog End -->
 
     {% endblock body %}

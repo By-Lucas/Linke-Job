@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} - Administração{% endblock title %}
+
+{% block body %} 
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-2">
+    {% include 'msg_alerts/message-alert.html' %}
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    style="min-height: 200px"
+  >
+    <h3 class="display-4 font-weight-bold text-white">Administração </h3>
+    <div class="d-inline-flex text-white">
+      <p class="m-0"><a class="text-white" href="#" style="font-size: 30px">{{ request.user.funcionario.empresa }}</a></p>
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+<!-- Block Start -->
+<div class="container-fluid pt-5">
+  <div class="container">
+    <div class="text-center pb-2">
+        <h1 class="mb-4">Olá 
+            <strong class="text-success">
+                {% if request.user.first_name %}
+                    {{ request.user.first_name }} {{ request.user.last_name }},
+                {% else %}
+                    {{ request.user.username }},
+                {% endif %}
+            </strong>
+            o que deseja fazer?
+        </h1>
+    </div>
+    <div class="row pb-3">
+        <div class="col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm mb-2">
+                <img class="card-img-top mb-1" style="max-height: 250px;" src="https://cdn-icons-png.flaticon.com/512/753/753210.png" alt="" />
+                <div class="card-body bg-light text-center p-4">
+                    <h5 class="">Cadastrar vaga</h5>
+                    <a href="{% url 'CreateVaga' %}" class="btn btn-success px-4 mx-auto my-2">Cadastrar vaga</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm mb-2">
+                <img class="card-img-top mb-1" style="max-height: 250px;" src="https://cdn-icons-png.flaticon.com/512/1803/1803508.png" alt="" />
+                <div class="card-body bg-light text-center p-4">
+                    <h5 class="">Visualizar vagas</h5>
+                    <a href="{% url 'ListVagasOn' %}" class="btn btn-primary px-4 mx-auto my-2">Visualizar vaga</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm mb-2">
+                <img class="card-img-top mb-1" style="max-height: 250px;" src="https://icons.iconarchive.com/icons/custom-icon-design/flatastic-10/256/Edit-validated-icon.png" alt="" />
+                <div class="card-body bg-light text-center p-4">
+                    <h5 class="">Editar vagas</h5>
+                    <a href="{% url 'ListVagasOn' %}" class="btn btn-warning px-4 mx-auto my-2">Editar vagas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm mb-2">
+                <img class="card-img-top mb-1" style="max-height: 250px;" src="https://cdn-icons-png.flaticon.com/512/1632/1632602.png" alt="" />
+                <div class="card-body bg-light text-center p-4">
+                    <h5 class="">Deletar vagas</h5>
+                    <a href="{% url 'ListVagasOn' %}" class="btn btn-danger px-4 mx-auto my-2">Deletar vaga</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-4">
+            {% with vagas_pages as paginated %}
+                {% include "paginacao/paginacao.html" %}
+            {% endwith %}
+        </div>
+    </div>
+  </div>
+</div>
+<!-- Blog End -->
+
+    {% endblock body %}

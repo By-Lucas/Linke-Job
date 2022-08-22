@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}- {{ request.user.funcionario.empresa }} {% endblock %}
+
+{% block body %} 
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-4">
+    <div
+        class="d-flex flex-column align-items-center justify-content-center"
+        style="min-height: 200px"
+    >
+        <h3 class="display-3 font-weight-bold text-white">{{ request.user.funcionario.empresa }}</h3>
+        <div class="d-inline-flex text-white">
+        </div>
+        
+    </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Block Start -->
+    <div class="container-fluid pt-5">
+    {% include 'msg_alerts/message-alert.html' %}
+    <div class="container">
+        <div class="text-center pb-2">
+        <h1 class="mb-4">Vagas da empresa logada</h1>
+        </div>
+        <div class="row pb-3">
+        {% for vagas in object_list  %}
+        <div class="col-lg-3 mb-3">
+            <div class="card border-0 shadow-sm mb-2">
+                <a href="{% url 'VagaDetailView' vagas.id %}" class="btn btn-primary px-4 mx-auto my-2">
+                    <img class="card-img-top mb-1" src="{% static 'img/home/header.png' %}" alt="" />
+                </a>
+                <div class="card-body bg-light text-center p-4">
+                
+                    <input type="hidden" name='vaga_nome' value="{{ vagas.id }}">
+                
+                    <h5 class="">{{ vagas.nome }}</h5>
+                    <div class="d-flex justify-content-center mb-3">
+                        <a href="{% url 'UpdateVaga' vagas.id %}" class="btn btn-primary mr-2">
+                            Editar
+                        </a>
+                        <a href="{% url 'Delete' vagas.pk %}" class="btn btn-danger mr-2">
+                            Deletar
+                        </a>
+                        {% if vagas.status == True %}
+                            <a href="#" class="btn btn-outline-success mr-2">
+                                <i class="fa fa-circle-check"></i>
+                            </a>
+                        {% else %}
+                        <a href="#" class="btn btn-outline-danger mr-2" >
+                            <i class="fa-solid fa-ban"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+
+        <div class="col-md-12 mb-4">
+            {% with vagas_pages as paginated %}
+            {% include "paginacao/paginacao.html" %}
+            {% endwith %}
+        </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->
+
+    {% endblock body %}

@@ -1,0 +1,30 @@
+
+{% if messages %}
+<script>
+    window.setTimeout(function() {
+        $('#element').toast('show');
+    }, 0200);
+</script>
+<div aria-live="polite" aria-atomic="true" style="position: relative; ">
+  {% for message in messages %}
+  <div class="toast alert bg-{{message.tags}} alert-dismissible fade show"  id="myAlert" style="position: absolute; top: 0; right: 0;">
+      <div class="toast-header bg-{{message.tags}}">
+        <i class="flaticon-036-boy text-white" style="margin-right: 10px;"></i> 
+        <strong class="mr-auto text-white"> {{message}} </strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="$(this).closest('.alert').remove()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% if message.extra_tags != 'stay' %}
+        <script>
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove(); 
+                });
+            }, 4000);
+        </script>
+      {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

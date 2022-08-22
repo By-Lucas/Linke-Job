@@ -1,0 +1,17 @@
+<!-- Modal -->
+<form action="{% url 'DeleteVaga' vagas.id %}" method="post">{% csrf_token %}
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Deseja deletar: {{vagas.nome}} ?</h5>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">X</button>
+        </div>
+        <div class="modal-body">
+          <p>Lembrando que após a confirmação, não tera como desfazer.</p>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-danger">Confirmar</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+</form>

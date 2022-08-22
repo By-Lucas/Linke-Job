@@ -1,0 +1,32 @@
+<!-- Modal -->
+<form action="{% url 'pegar_dados' vagas.id %}" method="post">{% csrf_token %}
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="staticBackdropLabel">Informações da candidatura</h4>
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">X</button>
+          </div>
+          <div class="modal-body">
+            <div class=" justify-content-center">
+              <div class="list-group ">
+                <div class="col-sm d-inline-flex mb-3">
+                  <input type="text"class='form-control col-lg-1 mr-2' name="vaga_id" value="{{vagas.id}}" disabled>
+                </div>
+                <div class="col-sm d-inline-flex mb-3">
+                  <input class="form-control col-lg-6 mr-2" type="text" name="usuario" value="{{request.user}}" disabled>
+                  <input class="form-control col-lg-6 mr-2" type="text" name="nome" value="{{vagas.nome}}" disabled>
+                </div>
+                <div class="col-sm d-inline-flex mb-3">
+                  <input class="form-control col-lg-6 mr-2" id="requisitos_adicionais" type="text" name="requisitos_adicionais" placeholder="Requisitos adicionais" value="{{user.profileuser.sobre}}"disabled>
+                  <input class="form-control col-lg-6 mr-2" type="text" name="escolaridade" placeholder="Escolaridade" value="{{user.profileuser.escolaridade_user}}"disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success">Me candidatar</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+</form>

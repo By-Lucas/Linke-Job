@@ -1,3 +1,4 @@
+from django.contrib.messages import constants
 from pathlib import Path
 import os, sys
 
@@ -36,8 +37,18 @@ INSTALLED_APPS += [
     'usuarios',
     'vagas',
     'autenticacao',
+    'funcionarios',
+    'departamento',
+    'candidaturas',
+    'administracao',
 
+    'widget_tweaks',
+    'bootstrapform',
+    'bootstrap4',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -124,6 +135,15 @@ STATICFILES_DIRS = [
 # Arquivsos de media 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
+
+
+MESSAGE_TAGS = {
+constants.DEBUG: 'primary',
+constants.ERROR: 'danger',
+constants.SUCCESS: 'success',
+constants.INFO: 'info',
+constants.WARNING: 'warning',
+}
 
 
 # Default primary key field type

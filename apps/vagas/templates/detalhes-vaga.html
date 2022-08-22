@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} - Vaga {{vagas.nome}} {% endblock title %}
+
+
+{% block body %}
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-4">
+    {% include 'msg_alerts/message-alert.html' %}
+    <div class="d-flex flex-column align-items-center justify-content-center"
+        style="min-height: 150px">
+        <h2 class="font-weight-bold text-white">{{vagas.nome}} - R$ {{vagas.faixa_salarial}}</h2>
+        <div class="d-inline-flex text-white">
+                <p class="m-0"><strong> Empresa: {{vagas.empresa}}</strong></p>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Block Start -->
+<div class="container-fluid ">
+    <div class="container col-md-7">
+        <!--SE DEJESAR EDITAR VAGA DIRETAMETNE NESTE TEMPLATE , DESCOMENTE-->
+        <!--
+        {% if request.user.is_authenticated %}
+            {% if request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'empresa' %}
+                <div class="d-flex flex-column align-items-center justify-content-center mb-4">
+                    <div class="d-inline-flex text-white">
+                        <a href="{% url 'CreateVaga' %}" class="btn btn-outline-success mr-2">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Cadastrar
+                        </a>
+                        <a href="{% url 'UpdateVaga' vagas.pk %}" class="btn btn-outline-primary mr-2">
+                            <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                        </a>
+                        <button type="button" class="btn btn-outline-danger mr-2" data-bs-toggle="modal" data-bs-target="#deletar">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Deletar
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}-->
+        <div class="row pb-3">
+            <div class="col-lg-6">
+                <input type="hidden" name='vaga_id' value="{{ vagas.id }}">
+
+                <p><li class="fa fa-suitcase" aria-hidden="true"></li>
+                    {{ vagas.get_vaga_tipo }} - {{vagas.get_senioridade}}
+                </p>
+                <p><i class="fa fa-building" aria-hidden="true"></i>
+                    {{vagas.empresa}}
+                </p>
+                <p><i class="fa fa-check-square" aria-hidden="true"></i>
+                    R$ {{vagas.faixa_salarial}}
+                </p>
+                <p><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    {{vagas.escolaridade}}
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <p><li class="fa fa-users" aria-hidden="true"></li>
+                    {{ quantidade }} Candidatos
+                </p>
+                <p><i class="fa fa-calendar" aria-hidden="true"></i>
+                    Criado á: {{vagas.data_criacao|timesince}}
+                </p>
+                <p><i class="fa fa-list" aria-hidden="true"></i>
+                    Seu perfil e compativel com esta vaga
+                </p>
+                <p><i class="fa fa-search" aria-hidden="true"></i>
+                    Vaga: {{ vagas.codigo }} 
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container col-md-8">
+        <div class="text-center pb-2" >
+            {% if request.user.is_authenticated %}
+                {% if vagas.status == True %}
+                    {% if not candidatura_ativa %}
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Me candidatar
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled>
+                            <i class="fa fa-check-square" aria-hidden="true"></i> Candidatura enviada
+                        </button>
+                    {% endif %}
+                {% else %}
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled >
+                        - Cadidaturas encerrada
+                    </button>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-outline-success">
+                    <i class="fa fa-login" aria-hidden="true"></i> Faça o login para se candidatar
+                </a>
+            {% endif %}
+            <a href="{% url 'todas_vagas' %}" class="btn btn-outline-primary">
+                <i class="fa fa-reply" aria-hidden="true"></i>
+                Voltar as vagas
+            </a>
+        </div>
+        <div class="col-lg-12">
+            <h3>Sobre:</h3>
+            {{vagas.requisitos|linebreaks }}
+        </div>
+        <div class="col-lg-6">
+            <h3>O Que Esperamos De Você</h3>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informações
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informações
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informações
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informações
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <h3>Requisitos e responsabilidades</h3>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Requisitos e responsabilidades
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Requisitos e responsabilidades
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Requisitos e responsabilidades
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Requisitos e responsabilidades
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <h3>Beneficios</h3>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informação
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informação
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informação
+            </p>
+            <p><i class="fa fa-caret-right fa-lg" aria-hidden="true"></i>
+                Informação
+            </p>
+        </div>
+        <!-- Modal Candidatar-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {% include 'modal/modal-candidatar.html' %}
+        </div>
+
+        <!-- Modal Deletar-->
+        <div class="modal fade" id="deletar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {% include 'modal/modal-delete.html' %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

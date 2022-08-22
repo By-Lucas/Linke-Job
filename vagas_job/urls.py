@@ -6,7 +6,16 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('core.urls')),
-    path("vagas/", include('vagas.urls'))
+    path("vagas/", include('vagas.urls')),
+    path("auth/", include('autenticacao.urls')),
+    path("usuario/", include('usuarios.urls')),
+    path("departamento/", include('departamento.urls')),
+    path("administracao/", include('administracao.urls')),
+    path("candidatura/", include('candidaturas.urls')),
+    #path("empresa/", include('empresas.urls')),
+    #path("vaga/", include('vagas.urls')),
+    #path("funcionario/", include('funcionarios.urls')),
+    
 ]
 
 if settings.DEBUG:
